@@ -7,12 +7,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h1>Homepage</h1>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+<ion-content scroll="false">
+  <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="17">
+    <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+  </sebm-google-map>
 </ion-content>

@@ -7,8 +7,9 @@ import { NavController } from 'ionic-angular';
 })
 export class PageHomepage {
 
-  constructor(public navCtrl: NavController) {
+  lat: number = 44.439199;
+  lng: number = 26.0960345;
 
-  }
+  constructor(public navCtrl: NavController) { }
 
 }

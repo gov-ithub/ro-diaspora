@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
+
 import { MyApp } from './app.component';
 import { PageHomepage } from '../pages/homepage/homepage';
 import { PageNews } from '../pages/news/news';
 
-import { NewsService } from '../providers/news'
+import { AgmCoreModule } from 'angular2-google-maps/core';
+import { NewsService } from '../providers/news';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,8 @@ import { NewsService } from '../providers/news'
     PageNews
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyBbFOmMJagRxPAR-TiLbsep1uqtXl9xl0s'})
   ],
   bootstrap: [IonicApp],
   entryComponents: [
