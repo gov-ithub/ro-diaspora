@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { PageHomepage } from '../pages/homepage/homepage';
-import { Page2 } from '../pages/page2/page2';
+import { PageNews } from '../pages/news/news';
+
+import { NewsService } from '../providers/news'
 
 @NgModule({
   declarations: [
     MyApp,
     PageHomepage,
-    Page2
+    PageNews
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -17,8 +19,10 @@ import { Page2 } from '../pages/page2/page2';
   entryComponents: [
     MyApp,
     PageHomepage,
-    Page2
+    PageNews
   ],
-  providers: []
+  providers: [
+    NewsService
+  ]
 })
 export class AppModule {}
