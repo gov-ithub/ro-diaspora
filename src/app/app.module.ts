@@ -6,6 +6,7 @@ import { PageHomepage } from '../pages/homepage/homepage';
 import { PageNews } from '../pages/news/news';
 
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import { GeoLocationService } from '../providers/geo-location';
 import { NewsService } from '../providers/news';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { NewsService } from '../providers/news';
     PageNews
   ],
   providers: [
+    GeoLocationService,
     NewsService
   ]
 })
