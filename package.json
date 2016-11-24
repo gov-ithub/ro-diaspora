@@ -35,8 +35,16 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-device",
     "ionic-plugin-keyboard",
-    "cordova-plugin-splashscreen"
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-geolocation",
+    "cordova-plugin-compat"
   ],
-  "cordovaPlatforms": [],
+  "cordovaPlatforms": [
+    {
+      "platform": "android",
+      "version": "",
+      "locator": "android"
+    }
+  ],
   "description": "romanescU-app2: An Ionic project"
 }
