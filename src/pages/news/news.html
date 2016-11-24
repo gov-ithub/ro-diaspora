@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Știri</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let item of news">
+    <ion-item>
+      <ion-avatar item-right>
+        <img src="http://img.1616.ro/40">
+      </ion-avatar>
+      <h3>Ministerul Afacerilor Externe</h3>
+      <p>{{ item.pubDate | date:"dd.MM.yyyy" }}</p>
+    </ion-item>
+
+    <img *ngIf="item.image" src="{{ item.image }}">
+
+    <ion-card-content>
+      <ion-card-title>
+        <h2><strong>{{ item.title }}</strong></h2>
+      </ion-card-title>
+      <p>{{ item.description }}</p>
+    </ion-card-content>
+
+    <ion-row no-padding>
+      <ion-col>
+        <button ion-button block clear small color="dark">Facebook</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block clear small color="dark">Whatsapp</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block clear small color="dark">Google+</button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>
