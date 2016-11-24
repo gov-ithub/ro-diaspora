@@ -19,7 +19,6 @@ export class MyApp {
   constructor(public platform: Platform) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Prima pagină', icon: 'home', component: PageHomepage },
       { title: 'Știri', icon: 'book', component: PageNews }
