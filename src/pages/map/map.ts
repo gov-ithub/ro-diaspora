@@ -3,9 +3,11 @@ import { NavController } from 'ionic-angular';
 
 import { Geolocation, Geoposition } from 'ionic-native';
 
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 
-declare var google: any;
+interface ICoords {lat: number, lng: number}
+const latLngEurope: ICoords = {lat: 49.1569609, lng: 13.898136};
 
 @Component({
   selector: 'page-map',
@@ -13,12 +15,11 @@ declare var google: any;
 })
 export class PageMap {
 
-  public latLng: Object;
-  public latLngEurope: Object = {lat: 49.1569609, lng: 13.898136};
-  public map: any;
-  public marker: any;
-  public markers: any;
-  public watch: any;
+  public latLng: ICoords;
+  public map: google.maps.Map;
+  public marker: google.maps.Marker;
+  public markers: google.maps.Marker;
+  public watch: Subscription;
 
   constructor(
     public navCtrl: NavController
@@ -33,7 +34,7 @@ export class PageMap {
 
     // map
     let mapOptions = {
-      center: this.latLngEurope,
+      center: latLngEurope,
       disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       maxZoom: 16,
@@ -44,6 +45,7 @@ export class PageMap {
 
     // user marker
     let markerOptions = {
+      position: null,
       map: this.map
     };
     this.marker = new google.maps.Marker(markerOptions);
