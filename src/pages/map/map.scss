@@ -1,0 +1,6 @@
+page-map {
+  [right][bottom] { right: 25px; bottom: 25px; }
+  [top][right] { top: 25px; right: 25px; }
+  .scroll-content { overflow-y: hidden; }
+  #gmap { height: 100%; }
+}

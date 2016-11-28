@@ -2,9 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { PageHomepage } from '../pages/homepage/homepage';
+import { PageMap } from '../pages/map/map';
 import { PageNews } from '../pages/news/news';
-
 
 @Component({
   templateUrl: 'app.html'
@@ -12,7 +11,7 @@ import { PageNews } from '../pages/news/news';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = PageHomepage;
+  rootPage: any = PageMap;
 
   pages: Array<{title: string, icon: string, component: any}>;
 
@@ -20,7 +19,7 @@ export class MyApp {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Prima pagină', icon: 'home', component: PageHomepage },
+      { title: 'Hartă', icon: 'home', component: PageMap },
       { title: 'Știri', icon: 'book', component: PageNews }
     ];
 
