@@ -1,6 +1,10 @@
 {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
+  "name": "romanescu-app",
+  "author": "GovITHub",
+  "contributors": [
+    "Catalin Zalog (http://zalog.ro/)",
+    "Claudiu Ceia"
+  ],
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
@@ -45,5 +49,5 @@
       "locator": "android"
     }
   ],
-  "description": "romanescU-app2: An Ionic project"
+  "description": "romanescu-app: An Ionic project"
 }
