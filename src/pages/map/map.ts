@@ -6,8 +6,7 @@ import { Geolocation, Geoposition } from 'ionic-native';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 
-interface ICoords {lat: number, lng: number}
-const latLngEurope: ICoords = {lat: 49.1569609, lng: 13.898136};
+const latLngEurope: google.maps.LatLngLiteral = {lat: 49.1569609, lng: 13.898136};
 
 @Component({
   selector: 'page-map',
@@ -15,7 +14,7 @@ const latLngEurope: ICoords = {lat: 49.1569609, lng: 13.898136};
 })
 export class PageMap {
 
-  public latLng: ICoords;
+  public latLng: google.maps.LatLngLiteral;
   public map: google.maps.Map;
   public marker: google.maps.Marker;
   public markers: google.maps.Marker;
