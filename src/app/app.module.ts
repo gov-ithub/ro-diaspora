@@ -2,31 +2,28 @@ import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { PageHomepage } from '../pages/homepage/homepage';
+
+import { PageMap } from '../pages/map/map';
 import { PageNews } from '../pages/news/news';
 
-import { AgmCoreModule } from 'angular2-google-maps/core';
-import { GeoLocationService } from '../providers/geo-location';
 import { NewsService } from '../providers/news';
 
 @NgModule({
   declarations: [
     MyApp,
-    PageHomepage,
+    PageMap,
     PageNews
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyBbFOmMJagRxPAR-TiLbsep1uqtXl9xl0s'})
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    PageHomepage,
+    PageMap,
     PageNews
   ],
   providers: [
-    GeoLocationService,
     NewsService
   ]
 })
