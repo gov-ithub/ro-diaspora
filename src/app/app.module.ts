@@ -7,6 +7,7 @@ import { PageMap } from '../pages/map/map';
 import { PageNews } from '../pages/news/news';
 
 import { NewsService } from '../providers/news';
+import { MarkersService } from '../providers/markers';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NewsService } from '../providers/news';
     PageNews
   ],
   providers: [
-    NewsService
+    NewsService,
+    MarkersService
   ]
 })
 export class AppModule {}
