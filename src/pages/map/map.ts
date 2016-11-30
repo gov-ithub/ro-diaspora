@@ -6,6 +6,8 @@ import { Geolocation, Geoposition } from 'ionic-native';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 
+import { MarkersService } from '../../providers/markers';
+
 const latLngEurope: google.maps.LatLngLiteral = {lat: 49.1569609, lng: 13.898136};
 
 @Component({
@@ -17,11 +19,12 @@ export class PageMap {
   public latLng: google.maps.LatLngLiteral;
   public map: google.maps.Map;
   public marker: google.maps.Marker;
-  public markers: google.maps.Marker;
-  public watch: Subscription;
+  public markers: google.maps.Marker[];
+  public watchPosition: Subscription;
 
   constructor(
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public markersService: MarkersService
   ) { }
 
   locate() {
@@ -54,17 +57,35 @@ export class PageMap {
       enableHighAccuracy: true,
       maximumAge: 5000
     };
-    this.watch = Geolocation.watchPosition(options)
+    this.watchPosition = Geolocation.watchPosition(options)
       .filter((p: any) => p.code === undefined)
       .subscribe((position: Geoposition) => {
         this.latLng = {lat: position.coords.latitude, lng: position.coords.longitude};
         this.marker.setPosition(this.latLng);
       });
 
+    // get & set markers
+    this.markersService.getData()
+      .then(data => {
+
+        this.markers = data.map(marker => {
+          let options = {
+            position: { lat: Math.floor(marker.la), lng: Math.floor(marker.lo) },
+            map: this.map
+          };
+          return new google.maps.Marker(options);
+        });
+
+        new MarkerClusterer(this.map, this.markers,
+          {imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m'}
+        );
+
+      });
+
   }
 
   ionViewWillLeave() {
-    this.watch.unsubscribe();
+    this.watchPosition.unsubscribe();
   }
 
 }
