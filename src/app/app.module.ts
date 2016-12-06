@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { PageMap } from '../pages/map/map';
+import { ModalMap } from '../pages/map/modal';
 import { PageNews } from '../pages/news/news';
 
 import { PositionService } from '../providers/position';
@@ -14,6 +15,7 @@ import { MarkersService } from '../providers/markers';
   declarations: [
     MyApp,
     PageMap,
+    ModalMap,
     PageNews
   ],
   imports: [
@@ -23,6 +25,7 @@ import { MarkersService } from '../providers/markers';
   entryComponents: [
     MyApp,
     PageMap,
+    ModalMap,
     PageNews
   ],
   providers: [

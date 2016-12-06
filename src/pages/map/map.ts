@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 
+import { ModalMap } from './modal';
 
 import { MarkersService } from '../../providers/markers';
 import { PositionService } from '../../providers/position';
@@ -24,6 +25,7 @@ export class PageMap {
 
   constructor(
     private navCtrl: NavController,
+    private modalController: ModalController,
     private markersService: MarkersService,
     private positionService: PositionService
   ) { }
@@ -78,6 +80,9 @@ export class PageMap {
             map: this.map
           };
           let output = new google.maps.Marker(options)
+          output.addListener('click', () => {
+            this.modalController.create(ModalMap, { id: marker.n }).present();
+          });
           return output;
         });
 

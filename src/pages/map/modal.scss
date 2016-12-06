@@ -1,0 +1,15 @@
+modal {
+  [radio-group] {
+    max-width: 320px; margin-left: auto; margin-right: auto; text-align: center;
+    ion-col {
+      padding: 0;
+      &:not(:last-child) .item-cover { border-right: 0 !important; }
+    }
+    .radio-icon { display: none !important; }
+    .item-cover { border: 1px solid #ddd !important; }
+    .item { padding: 0; }
+    .item-inner { padding-right: 0 !important; border-bottom: 0 !important; }
+    .input-wrapper { flex: 1 0 100%; text-align: center; }
+    .label{ margin-right: 0; }
+  }
+}
