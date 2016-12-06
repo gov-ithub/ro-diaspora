@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 
 import { PageMap } from '../pages/map/map';
 import { PageNews } from '../pages/news/news';
+import { PageDetail } from '../pages/detail/detail';
 
 import { PositionService } from '../providers/position';
 import { NewsService } from '../providers/news';
@@ -14,7 +15,8 @@ import { MarkersService } from '../providers/markers';
   declarations: [
     MyApp,
     PageMap,
-    PageNews
+    PageNews,
+    PageDetail,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -23,7 +25,8 @@ import { MarkersService } from '../providers/markers';
   entryComponents: [
     MyApp,
     PageMap,
-    PageNews
+    PageNews,
+    PageDetail,
   ],
   providers: [
     {
