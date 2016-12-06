@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { Geolocation, Geoposition } from 'ionic-native';
-
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/filter';
 
 import { MarkersService } from '../../providers/markers';
+import { PositionService } from '../../providers/position';
+
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/map';
 
 const latLngEurope: google.maps.LatLngLiteral = {lat: 49.1569609, lng: 13.898136};
 
@@ -16,25 +16,41 @@ const latLngEurope: google.maps.LatLngLiteral = {lat: 49.1569609, lng: 13.898136
 })
 export class PageMap {
 
-  public latLng: google.maps.LatLngLiteral;
-  public map: google.maps.Map;
-  public marker: google.maps.Marker;
-  public markers: google.maps.Marker[];
-  public watchPosition: Subscription;
+  private map: google.maps.Map;
+  private userMarker: google.maps.Marker;
+  private position: google.maps.LatLngLiteral;
+  private subscribeMarkers: Subscription;
+  private subscribePosition: Subscription;
 
   constructor(
-    public navCtrl: NavController,
-    public markersService: MarkersService
+    private navCtrl: NavController,
+    private markersService: MarkersService,
+    private positionService: PositionService
   ) { }
 
-  locate() {
-    this.map.panTo(this.latLng);
-    this.map.setZoom(16);
+  ionViewWillEnter() {
+    this.setMap();
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
+    this.setMarkers();
+    this.setUserMarker();
+  }
 
-    // map
+  ionViewWillLeave() {
+    this.unsubscribe();
+  }
+
+  locate() {
+
+    this.map.panTo(this.position);
+    this.map.setZoom(16);
+
+  }
+
+  private setMap() {
+
+    // set map
     let mapOptions = {
       center: latLngEurope,
       disableDefaultUI: true,
@@ -45,47 +61,50 @@ export class PageMap {
     };
     this.map = new google.maps.Map(document.getElementById("gmap"), mapOptions);
 
-    // user marker
-    let markerOptions = {
-      position: null,
-      map: this.map
-    };
-    this.marker = new google.maps.Marker(markerOptions);
+    // set user marker
+    this.userMarker = new google.maps.Marker({ map: this.map, position: null });
 
-    // get user location and update his marker position
-    let options = {
-      enableHighAccuracy: true,
-      maximumAge: 5000
-    };
-    this.watchPosition = Geolocation.watchPosition(options)
-      .filter((p: any) => p.code === undefined)
-      .subscribe((position: Geoposition) => {
-        this.latLng = {lat: position.coords.latitude, lng: position.coords.longitude};
-        this.marker.setPosition(this.latLng);
-      });
+  }
+
+  private setMarkers() {
 
     // get & set markers
-    this.markersService.getData()
-      .then(data => {
+    this.subscribeMarkers = this.markersService.getMarkers()
+      .subscribe(marker => {
 
-        this.markers = data.map(marker => {
+        let markers = marker.map(marker => {
           let options = {
             position: { lat: Math.floor(marker.la), lng: Math.floor(marker.lo) },
             map: this.map
           };
-          return new google.maps.Marker(options);
+          let output = new google.maps.Marker(options)
+          return output;
         });
 
-        new MarkerClusterer(this.map, this.markers,
-          {imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m'}
+        new MarkerClusterer(this.map, markers,
+          { imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m' }
         );
 
       });
 
   }
 
-  ionViewWillLeave() {
-    this.watchPosition.unsubscribe();
+  private setUserMarker() {
+
+    // get user location and update user marker
+    this.subscribePosition = this.positionService.getPosition()
+      .subscribe(position => {
+        this.position = { lat: position.coords.latitude, lng: position.coords.longitude };
+        this.userMarker.setOptions({ position: this.position, visible: true })
+      });
+
+  }
+
+  private unsubscribe() {
+
+    this.subscribePosition.unsubscribe();
+    this.subscribeMarkers.unsubscribe();
+
   }
 
 }
