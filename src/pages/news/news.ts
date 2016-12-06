@@ -13,8 +13,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class PageNews {
 
-  news: News[];
-
+  private news: News[];
   private subscribeNews: Subscription;
 
   constructor(

@@ -17,7 +17,7 @@ const latLngEurope: google.maps.LatLngLiteral = {lat: 49.1569609, lng: 13.898136
 export class PageMap {
 
   private map: google.maps.Map;
-  private marker: google.maps.Marker;
+  private userMarker: google.maps.Marker;
   private position: google.maps.LatLngLiteral;
   private subscribeMarkers: Subscription;
   private subscribePosition: Subscription;
@@ -34,7 +34,7 @@ export class PageMap {
 
   ionViewDidEnter() {
     this.setMarkers();
-    this.setMarker();
+    this.setUserMarker();
   }
 
   ionViewWillLeave() {
@@ -62,7 +62,7 @@ export class PageMap {
     this.map = new google.maps.Map(document.getElementById("gmap"), mapOptions);
 
     // set user marker
-    this.marker = new google.maps.Marker({ map: this.map, position: null });
+    this.userMarker = new google.maps.Marker({ map: this.map, position: null });
 
   }
 
@@ -89,13 +89,13 @@ export class PageMap {
 
   }
 
-  private setMarker() {
+  private setUserMarker() {
 
     // get user location and update user marker
     this.subscribePosition = this.positionService.getPosition()
       .subscribe(position => {
         this.position = { lat: position.coords.latitude, lng: position.coords.longitude };
-        this.marker.setOptions({ position: this.position, visible: true })
+        this.userMarker.setOptions({ position: this.position, visible: true })
       });
 
   }
