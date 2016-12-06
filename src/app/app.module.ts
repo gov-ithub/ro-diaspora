@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { PageMap } from '../pages/map/map';
 import { PageNews } from '../pages/news/news';
 
+import { PositionService } from '../providers/position';
 import { NewsService } from '../providers/news';
 import { MarkersService } from '../providers/markers';
 
@@ -29,6 +30,7 @@ import { MarkersService } from '../providers/markers';
       provide: ErrorHandler,
       useClass: IonicErrorHandler
     },
+    PositionService,
     NewsService,
     MarkersService
   ]
