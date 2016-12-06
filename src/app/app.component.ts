@@ -4,6 +4,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { PageMap } from '../pages/map/map';
 import { PageNews } from '../pages/news/news';
+import { PageDetail } from '../pages/detail/detail';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,9 +21,9 @@ export class MyApp {
 
     this.pages = [
       { title: 'Hartă', icon: 'home', component: PageMap },
-      { title: 'Știri', icon: 'book', component: PageNews }
+      { title: 'Știri', icon: 'book', component: PageNews },
+      { title: 'Detalii', icon: 'ios-list-box-outline', component: PageDetail },
     ];
-
   }
 
   initializeApp() {
