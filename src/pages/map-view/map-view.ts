@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, NavParams, Slides } from 'ionic-angular';
+import { ViewController, NavParams } from 'ionic-angular';
 
 import { MarkerVotingStation } from '../../models/marker-voting-station';
 import { MarkerStats } from '../../models/markers-stats';
