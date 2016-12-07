@@ -14,7 +14,7 @@ export class MarkersService {
   private urlStats = 'http://www.mocky.io/v2/5841ce7e1000009611bb4cea';
 
   constructor(
-    public http: Http
+    private http: Http
   ) { }
 
   getMarkers(id: number | boolean = false): Observable<MarkerVotingStation[]> {
