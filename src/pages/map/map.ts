@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Platform, NavController, ModalController } from 'ionic-angular';
 
+import { PageMapView } from '../../pages/map-view/map-view';
 
 import { MarkersService } from '../../providers/markers';
 import { PositionService } from '../../providers/position';
@@ -23,7 +24,9 @@ export class PageMap {
   private subscribePosition: Subscription;
 
   constructor(
-    private navCtrl: NavController,
+    private platform: Platform,
+    private navController: NavController,
+    private modalController: ModalController,
     private markersService: MarkersService,
     private positionService: PositionService
   ) { }
@@ -37,7 +40,7 @@ export class PageMap {
     this.setUserMarker();
   }
 
-  ionViewWillLeave() {
+  ionViewDidLeave() {
     this.unsubscribe();
   }
 
@@ -78,6 +81,10 @@ export class PageMap {
             map: this.map
           };
           let output = new google.maps.Marker(options)
+          output.addListener('click', () => {
+            if ( this.platform.is('mobile') ) this.navController.push(PageMapView, { id: marker.n });
+            else this.modalController.create(PageMapView, { id: marker.n }).present();
+          });
           return output;
         });
 
@@ -101,6 +108,9 @@ export class PageMap {
   }
 
   private unsubscribe() {
+
+    // do not unsubscribe if ionViewDidLeave in a children page
+    if ( this.navController.getActive(true).name == 'PageMapView' ) return;
 
     this.subscribePosition.unsubscribe();
     this.subscribeMarkers.unsubscribe();

@@ -1,0 +1,72 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Detalii</ion-title>
+    <ion-buttons end *ngIf="isOverlay">
+      <button ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="marker && image" class="cover"><img src="{{ image }}"></div>
+
+  <div padding>
+
+    <div *ngIf="marker">
+
+      <h1>{{ marker.m }}</h1>
+
+      <ion-list no-lines>
+        <div ion-item>
+          <ion-icon name="flag" item-left></ion-icon>
+          {{ marker.a }}
+        </div>
+        <div ion-item>
+          <ion-icon name="call" item-left></ion-icon>
+          +40879465284
+        </div>
+        <div ion-item (click)="scheduleDetails.hidden = !scheduleDetails.hidden">
+          <ion-icon name="time" item-left></ion-icon>
+          Acum e deschis (07:00 - 10:30)
+          <div #scheduleDetails hidden>
+            <p>Luni - Vineri: 9:00 - 12:00</p>
+            <p>Sâmbătă - Duminică: închis</p>
+          </div>
+        </div>
+      </ion-list>
+
+    </div>
+
+    <canvas id="chart" width="100%" height="30" margin-bottom></canvas>
+
+    <div *ngIf="marker">
+
+      <h2 text-center>Ajută-ne să fim preciși!</h2>
+
+      <form radio-group><ion-grid>
+        <ion-row>
+          <ion-col width-33><ion-item>
+            <ion-label>Aglomerat</ion-label>
+            <ion-radio value="friends"></ion-radio>
+          </ion-item></ion-col>
+          <ion-col width-33><ion-item>
+            <ion-label>Normal</ion-label>
+            <ion-radio value="family"></ion-radio>
+          </ion-item></ion-col>
+          <ion-col width-33><ion-item>
+            <ion-label>Liber</ion-label>
+            <ion-radio value="enemies"></ion-radio>
+          </ion-item></ion-col>
+        </ion-row>
+      </ion-grid></form>
+
+    </div>
+
+  </div>
+
+</ion-content>
