@@ -22,7 +22,6 @@ export class MyApp {
       { title: 'Hartă', icon: 'home', component: PageMap },
       { title: 'Știri', icon: 'book', component: PageNews }
     ];
-
   }
 
   initializeApp() {
