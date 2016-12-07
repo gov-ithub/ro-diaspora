@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { PageMap } from '../pages/map/map';
 import { PageMapView } from '../pages/map-view/map-view';
 import { PageNews } from '../pages/news/news';
+import { PageInfo } from '../pages/info/info';
 
 import { PositionService } from '../providers/position';
 import { NewsService } from '../providers/news';
@@ -16,7 +17,8 @@ import { MarkersService } from '../providers/markers';
     MyApp,
     PageMap,
     PageMapView,
-    PageNews
+    PageNews,
+    PageInfo
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -26,7 +28,8 @@ import { MarkersService } from '../providers/markers';
     MyApp,
     PageMap,
     PageMapView,
-    PageNews
+    PageNews,
+    PageInfo
   ],
   providers: [
     {
