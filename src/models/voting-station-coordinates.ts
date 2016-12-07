@@ -1,4 +1,4 @@
 export interface VotingStationCoordinates {
-  lat: number;
-  long: number;
+  lat: string;
+  lng: string;
 }
