@@ -1,6 +1,8 @@
 page-map-view {
   .cover {
     background-color: #ddd;
+    width: inherit;
+    height: inherit;
     img { display: block; margin-left: auto; margin-right: auto; }
   }
   canvas:empty { display: none; }

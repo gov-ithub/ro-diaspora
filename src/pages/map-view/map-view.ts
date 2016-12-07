@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, NavParams } from 'ionic-angular';
+import { ViewController, NavParams, Slides } from 'ionic-angular';
 
 import { MarkerVotingStation } from '../../models/marker-voting-station';
 import { MarkerStats } from '../../models/markers-stats';
@@ -17,8 +17,12 @@ import Chart from 'chart.js/dist/Chart.bundle.js';
 })
 export class PageMapView {
 
+  sliderOptions = {
+    pager: true,
+  };
   marker: MarkerVotingStation;
   image: string;
+  imagePanoramic: string;
   isOverlay: boolean;
 
   private id: number = 0;
@@ -55,7 +59,12 @@ export class PageMapView {
     this.subscribeMarker = this.markersService.getMarkers(this.id)
       .subscribe((marker: MarkerVotingStation[]) => {
         this.marker = marker[0];
-        this.image = 'https://maps.googleapis.com/maps/api/staticmap?size=640x260&scale=1&zoom=17&markers=size:mid|color:red|' + marker[0].la + ','+ marker[0].lo;
+        this.imagePanoramic = 
+          'https://maps.googleapis.com/maps/api/streetview?size=640x260&fov=120&location='
+            + marker[0].coords.lat + ',' + marker[0].coords.long;
+        this.image = 
+          'https://maps.googleapis.com/maps/api/staticmap?size=640x260&scale=1&zoom=17&markers=size:mid|color:red|' 
+          + marker[0].coords.lat + ','+ marker[0].coords.long;
       });
 
   }

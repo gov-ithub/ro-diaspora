@@ -77,13 +77,16 @@ export class PageMap {
 
         let markers = marker.map(marker => {
           let options = {
-            position: { lat: Math.floor(marker.la), lng: Math.floor(marker.lo) },
+            position: { 
+              lat: Number(marker.coords.lat), 
+              lng: Number(marker.coords.long),
+            },
             map: this.map
           };
           let output = new google.maps.Marker(options)
           output.addListener('click', () => {
-            if ( this.platform.is('mobile') ) this.navController.push(PageMapView, { id: marker.n });
-            else this.modalController.create(PageMapView, { id: marker.n }).present();
+            if ( this.platform.is('mobile') ) this.navController.push(PageMapView, { id: marker.id });
+            else this.modalController.create(PageMapView, { id: marker.id }).present();
           });
           return output;
         });

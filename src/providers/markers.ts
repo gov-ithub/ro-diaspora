@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MarkersService {
 
-  private urlMarkers = 'http://www.mocky.io/v2/583c39b629000037076eca64';
+  private urlMarkers = '/assets/data/voting-stations.json';
   private urlStats = 'http://www.mocky.io/v2/5841ce7e1000009611bb4cea';
 
   constructor(
@@ -21,7 +21,7 @@ export class MarkersService {
     return this.http.get(this.urlMarkers)
       .map((res: Response) => {
         let output: MarkerVotingStation[] = res.json();
-        if ( id ) output = output.filter(res => res.n == id);
+        if ( id ) output = output.filter(res => res.id == id);
         return output;
       });
   }
