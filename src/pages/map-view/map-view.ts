@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { ViewController, NavParams } from 'ionic-angular';
 
 import { MarkerVotingStation } from '../../models/marker-voting-station';
 import { MarkerStats } from '../../models/markers-stats';
@@ -12,13 +12,14 @@ import 'rxjs/add/operator/map';
 import Chart from 'chart.js/dist/Chart.bundle.js';
 
 @Component({
-  selector: 'modal',
-  templateUrl: 'modal.html'
+  selector: 'page-map-view',
+  templateUrl: 'map-view.html'
 })
-export class ModalMap {
+export class PageMapView {
 
-  public marker: MarkerVotingStation;
-  public image: string;
+  marker: MarkerVotingStation;
+  image: string;
+  isOverlay: boolean;
 
   private id: number = 0;
   private chart: Chart;
@@ -26,19 +27,20 @@ export class ModalMap {
   private subscribeMarkerStats: Subscription;
 
   constructor(
-    private navParams: NavParams,
     private viewController: ViewController,
+    private navParams: NavParams,
     private markersService: MarkersService
   ) {
     this.id = navParams.get('id');
+    this.isOverlay = this.viewController.isOverlay;
   }
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     this.setMarker();
     this.setChart();
   }
 
-  ionViewWillLeave() {
+  ionViewDidLeave() {
     this.unsubscribe();
   }
 
@@ -65,35 +67,35 @@ export class ModalMap {
       .subscribe((markerStats: MarkerStats[]) => {
 
         let labels = markerStats.map(data => data.timestamp),
-            data = markerStats.map(data => data.stats);
+          data = markerStats.map(data => data.stats);
 
-        if ( labels.length && data.length ) {
+        if (labels.length && data.length) {
           let chartOptions = {
-              type: 'line',
-              options: {
-                animation: false,
-                legend: { display: false },
-                scales: {
-                  xAxes: [{
-                    type: 'time',
-                    time: {
-                      tooltipFormat: 'HH:mm',
-                      unit: 'hour',
-                      unitStepSize: 1,
-                      displayFormats: {
-                        minute: 'HH:mm',
-                        hour: 'HH:mm'
-                      },
-                    }
-                  }]
-                }
-              },
-              data: {
-                labels: labels,
-                datasets: [{
-                  data: data
+            type: 'line',
+            options: {
+              animation: false,
+              legend: { display: false },
+              scales: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    tooltipFormat: 'HH:mm',
+                    unit: 'hour',
+                    unitStepSize: 1,
+                    displayFormats: {
+                      minute: 'HH:mm',
+                      hour: 'HH:mm'
+                    },
+                  }
                 }]
               }
+            },
+            data: {
+              labels: labels,
+              datasets: [{
+                data: data
+              }]
+            }
           };
           this.chart = new Chart(document.getElementById("chart"), chartOptions);
           this.chart.update();

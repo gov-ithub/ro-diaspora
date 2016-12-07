@@ -1,17 +1,19 @@
 <ion-header>
-  <ion-navbar color="primary">
+
+  <ion-navbar>
     <ion-title>Detalii</ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="isOverlay">
       <button ion-button (click)="close()">
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
+
 </ion-header>
 
 <ion-content>
 
-  <div *ngIf="marker && image"><img src="{{ image }}"></div>
+  <div *ngIf="marker && image" class="cover"><img src="{{ image }}"></div>
 
   <div padding>
 
