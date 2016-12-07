@@ -1,8 +1,11 @@
+import { VotingStationCoordinates } from './voting-station-coordinates';
+import { VotingStationCategory } from './voting-station-category';
+
 export interface MarkerVotingStation {
-  n: number; // id
-  m: string; // title
-  a: string; // address
-  co: string; // country
-  la: number; // latitude
-  lo: number; // longitude
+  id: string; 
+  name: string; 
+  address: string; 
+  country: string; 
+  coords: VotingStationCoordinates; 
+  category: VotingStationCategory;
 }
