@@ -12,7 +12,7 @@ export class NewsService {
   url = 'http://www.mocky.io/v2/583604b61100005b110c0065';
 
   constructor(
-    public http: Http
+    private http: Http
   ) { }
 
   getNews(): Observable<News[]> {

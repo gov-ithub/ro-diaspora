@@ -1,13 +1,16 @@
 <ion-header>
+
   <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Știri</ion-title>
   </ion-navbar>
+
 </ion-header>
 
 <ion-content>
+
   <ion-card *ngFor="let item of news">
     <ion-item>
       <ion-avatar item-right>
@@ -38,4 +41,5 @@
       </ion-col>
     </ion-row>
   </ion-card>
+
 </ion-content>

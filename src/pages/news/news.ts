@@ -13,11 +13,12 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class PageNews {
 
-  private news: News[];
+  news: News[];
+
   private subscribeNews: Subscription;
 
   constructor(
-    public navCtrl: NavController,
+    public navController: NavController,
     private newsService: NewsService
   ) { }
 
