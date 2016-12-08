@@ -11,9 +11,4 @@ export class PageInfo {
   FAQPage = PageFAQ;
 
   constructor(public navCtrl: NavController) {}
-
-  ionViewDidLoad() {
-    console.log('Hello PageInfoPage Page');
-  }
-
 }
