@@ -21,7 +21,6 @@ export class MyApp {
 
     this.pages = [
       { title: 'Hartă', icon: 'home', component: PageMap },
-      { title: 'Știri', icon: 'book', component: PageNews },
       { title: 'Informații', icon: 'information-circle', component: PageInfo },
       { title: 'Întrebări Frecvente', icon: 'help-circle', component: PageFAQ }
     ];

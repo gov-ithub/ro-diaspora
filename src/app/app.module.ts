@@ -18,7 +18,6 @@ import { LinkyModule } from 'angular2-linky';
     MyApp,
     PageMap,
     PageMapView,
-    PageNews,
     PageInfo,
     PageFAQ
   ],
@@ -31,7 +30,6 @@ import { LinkyModule } from 'angular2-linky';
     MyApp,
     PageMap,
     PageMapView,
-    PageNews,
     PageInfo,
     PageFAQ
   ],
