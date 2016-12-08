@@ -3,7 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { PageMap } from '../pages/map/map';
-import { PageNews } from '../pages/news/news';
 import { PageInfo } from '../pages/info/info';
 
 @Component({
@@ -21,7 +20,6 @@ export class MyApp {
 
     this.pages = [
       { title: 'Hartă', icon: 'home', component: PageMap },
-      { title: 'Știri', icon: 'book', component: PageNews },
       { title: 'Informații', icon: 'information-circle', component: PageInfo }
     ];
   }
