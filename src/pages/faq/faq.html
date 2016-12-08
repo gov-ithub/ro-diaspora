@@ -1,0 +1,22 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Întrebări Frecvente</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item padding *ngFor="let i of FAQItems" (click)="toggleDetails(i)" text-wrap>
+      <ion-icon color="primary" item-right [name]="i.icon"></ion-icon>
+      <h2>{{ i.title }}</h2>
+      <div *ngIf="i.isExpanded">
+        {{ i.description }}
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
