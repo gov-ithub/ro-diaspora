@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { SocialSharing } from 'ionic-native';
 
@@ -26,20 +27,39 @@ export class PageFeedback {
     pager: true,
     speed: 500
   };
-  
-  slides = [
-    {content: 'Ai găsit ușor secția de vot selectată?', id: 1, buttons: DefaultButtons},
-    {content: 'Secția de vot era poziționată corect pe hartă?', id: 2, buttons: DefaultButtons},
-    {content: 'Era aglomerat sau nu la secția de vot?', id: 3, buttons: DefaultButtons},
-  ];
 
   answerOptions = {
     da: 1,
     nu: 2,
   };
+
+  slides = [];
+  
+  private allSlides = [
+    {content: 'Ai găsit ușor secția de vot selectată?', id: 1, buttons: DefaultButtons},
+    {content: 'Secția de vot era poziționată corect pe hartă?', id: 2, buttons: DefaultButtons},
+    {content: 'Era aglomerat sau nu la secția de vot?', id: 3, buttons: DefaultButtons},
+  ];
   
   constructor(
+    private storage: Storage
   ) {}
+
+  ionViewDidLoad() {
+    this.storage.keys().then(data => {
+      let length = this.allSlides.length;
+      for (let i = 0; i < length; i++) {
+        let slide = this.allSlides[i];
+        if (data.indexOf(this.getQuestionKey(slide.id)) == -1) {
+          this.slides.push(slide);
+        }
+      }
+    });
+  }
+
+  private getQuestionKey(id: number) {
+    return 'feedback-' + id;
+  }
 
   nextSlide() {
     this.slider.slideNext();
@@ -47,7 +67,10 @@ export class PageFeedback {
 
   answerQuestion(id: number, answer: number) {
     this.nextSlide();
-    
+    this.storage.set(
+      this.getQuestionKey(id),
+      answer
+    );    
   }
 
   whatsappShare() {

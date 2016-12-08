@@ -25,9 +25,14 @@
         *ngFor="let button of question.buttons"
         ion-button 
         color="{{ button.color }}" 
-        (click)="nextSlide(question.id, button.value)">
+        (click)="answerQuestion(question.id, button.value)">
         {{ button.label }}
       </button>
+      <p>
+        <button clear (click)="nextSlide()" ion-button>
+          Răspund mai târziu
+        </button>
+      </p>
     </ion-slide>
     <ion-slide>
       <h2>Spune-le și prietenilor tăi</h2>
