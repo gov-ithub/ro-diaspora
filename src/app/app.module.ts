@@ -5,7 +5,6 @@ import { MyApp } from './app.component';
 
 import { PageMap } from '../pages/map/map';
 import { PageMapView } from '../pages/map-view/map-view';
-import { PageInfo } from '../pages/info/info';
 import { PageFAQ } from '../pages/faq/faq';
 import { PageFeedback } from '../pages/feedback/feedback';
 
@@ -19,7 +18,6 @@ import { LinkyModule } from 'angular2-linky';
     MyApp,
     PageMap,
     PageMapView,
-    PageInfo,
     PageFAQ,
     PageFeedback
   ],
@@ -33,7 +31,6 @@ import { LinkyModule } from 'angular2-linky';
     PageMap,
     PageMapView,
     PageFAQ,
-    PageInfo,
     PageFeedback
   ],
   providers: [

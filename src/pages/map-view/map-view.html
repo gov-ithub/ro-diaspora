@@ -38,13 +38,15 @@
         </div>
         <div ion-item>
           <ion-icon name="time" item-left></ion-icon>
-            7:00 - 21:00 (ora locală)
-          <div #scheduleDetails hidden>
-            <p>Luni - Vineri: 9:00 - 12:00</p>
-            <p>Sâmbătă - Duminică: închis</p>
-          </div>
+          7:00 - 21:00 (ora locală)
         </div>
       </ion-list>
+      <div ion-item>
+        <button ion-button [navPush]="FAQPage" icon-left>
+          <ion-icon name="help-circle"></ion-icon>
+          Întrebări Frecvente Vot
+        </button>
+      </div>
 
     </div>
   </div>
