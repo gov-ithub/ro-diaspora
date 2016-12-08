@@ -12,10 +12,9 @@
 <ion-content padding>
   <ion-list>
     <ion-item padding *ngFor="let i of FAQItems" text-wrap>
-      <ion-icon color="primary" item-right [name]="i.icon" (click)="toggleDetails(i)"></ion-icon>
       <h2>{{ i.title }}</h2>
-      <div *ngIf="i.isExpanded" [innerHTML]="i.description | linky">
-      </div>
+      <div *ngIf="i.isExpanded" [innerHTML]="i.description | linky"></div>
+      <ion-icon color="primary" item-right [name]="i.icon" (click)="toggleDetails(i)"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

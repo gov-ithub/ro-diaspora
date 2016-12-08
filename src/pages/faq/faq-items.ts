@@ -2,7 +2,7 @@ export const FAQItems = [
   {
     title: "Ce acte îmi sunt necesare pentru vot?",
     description: "Cetăţenii români cu DOMICILIUL în străinătate îşi pot exercita dreptul de vot în baza unuia dintre următoarele acte de identitate, valabile în ziua votării: paşaportul simplu /  paşaportul simplu temporar / paşaportul simplu electronic.\n\nCetăţenii români cu REŞEDINŢA în străinătate pot vota cu un act de identitate valid, fie ca e carte de identitate (simpla, electronica sau provizorie), buletin de identitate; sau paşaport (simplu, electronic, de serviciu, temporar sau diplomatic) diplomatic. Oricare dintre aceste acte trebuie însoţită de un document oficial emis de statul străin privind stabilirea reşedinţei."
-  }, 
+  },
   {
     title: "Unde pot vedea care sunt secțiile de votare organizate în străinătate?",
     description: "Lista secțiilor de votare organizate în străinătate şi adresele acestora pot fi vizualizate accesând pagina de web a Ministerului Afacerilor Externe: http://www.mae.ro/parlamentare-2016/"

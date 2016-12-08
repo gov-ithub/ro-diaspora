@@ -16,12 +16,12 @@ export class PageFAQ {
   FAQItems: Array<FAQItem> = [];
 
   constructor(
-  ) { 
+  ) {
     this.FAQItems = FAQItems.map(function(item, index) {
       return {
         title: item.title,
         description: item.description,
-        icon: 'add-circle-outline',
+        icon: 'add-circle',
         isExpanded: false,
       };
     });
@@ -30,10 +30,10 @@ export class PageFAQ {
   toggleDetails(faq: FAQItem) {
     if (faq.isExpanded) {
       faq.isExpanded = false;
-      faq.icon = 'add-circle-outline';
+      faq.icon = 'add-circle';
     } else {
       faq.isExpanded = true;
-      faq.icon = 'remove-circle-outline';
+      faq.icon = 'remove-circle';
     }
   }
 }
