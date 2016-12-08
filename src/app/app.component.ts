@@ -20,9 +20,9 @@ export class MyApp {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Hartă', icon: 'home', component: PageMap },
+      { title: 'Hartă', icon: 'map', component: PageMap },
       { title: 'Întrebări Frecvente', icon: 'help-circle', component: PageFAQ },
-      { title: 'Opinia ta', icon: 'paper', component: PageFeedback }
+      { title: 'Opinia ta', icon: 'checkbox', component: PageFeedback }
     ];
   }
 
