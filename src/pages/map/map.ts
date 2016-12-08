@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { Platform, NavController, ModalController } from 'ionic-angular';
+import { 
+  Platform, 
+  NavController, 
+  ModalController, 
+  ToastController 
+} from 'ionic-angular';
+
+import { Storage } from '@ionic/storage';
 
 import { PageMapView } from '../../pages/map-view/map-view';
 
@@ -45,13 +52,16 @@ export class PageMap {
     private navController: NavController,
     private modalController: ModalController,
     private markersService: MarkersService,
-    private positionService: PositionService
+    private positionService: PositionService,
+    private toastController: ToastController,
+    private storage: Storage, 
   ) { }
 
   ionViewWillEnter() {
     this.searchEl = document.getElementById("search");
     this.searchInput = this.searchEl.getElementsByTagName('input')[0];
     this.setMap();
+    this.presentToast();
   }
 
   ionViewDidEnter() {
@@ -75,6 +85,29 @@ export class PageMap {
     this.map.panTo(latLngEurope);
     this.map.setZoom(4);
     this.searchInput.value = '';
+  }
+
+  private presentToast() {
+    this.storage.get('toast-intro').then((val) => {
+      if (val === true) {
+        return;
+      }
+
+      let toast = this.toastController.create({
+        message: 'Apasă un punct de pe hartă pentru detalii',
+        position: 'bottom',
+        showCloseButton: true,
+        closeButtonText: 'Închide',
+        dismissOnPageChange: true,
+        cssClass: 'toast-gmaps',
+      });
+      
+      toast.onDidDismiss(() => {
+        this.storage.set('toast-intro', true);
+      });
+
+      toast.present();
+    });
   }
 
   private setMap() {
