@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
+
 import { PageFAQ } from '../faq/faq';
+import { PageFeedback } from '../feedback/feedback';
 
 import { MarkerVotingStation } from '../../models/marker-voting-station';
 import { MarkersService } from '../../providers/markers';
@@ -12,6 +14,7 @@ import { MarkersService } from '../../providers/markers';
 
 export class PageMapView {
   FAQPage = PageFAQ;
+  FeedbackPage = PageFeedback;
 
   sliderOptions = {
     pager: true,
