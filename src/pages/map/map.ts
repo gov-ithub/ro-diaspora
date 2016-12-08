@@ -88,7 +88,7 @@ export class PageMap {
       zoom: 4
     };
     this.map = new google.maps.Map(document.getElementById("gmap"), mapOptions);
-
+    
     // set user marker
     this.userMarker = new google.maps.Marker({ map: this.map, position: null, icon: this.markerIconUser });
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, NavParams } from 'ionic-angular';
+import { ViewController, NavParams, Platform } from 'ionic-angular';
 
 import { PageFAQ } from '../faq/faq';
 import { PageFeedback } from '../feedback/feedback';
@@ -7,11 +7,12 @@ import { PageFeedback } from '../feedback/feedback';
 import { MarkerVotingStation } from '../../models/marker-voting-station';
 import { MarkersService } from '../../providers/markers';
 
+declare var directions: any;
+
 @Component({
   selector: 'page-map-view',
   templateUrl: 'map-view.html'
 })
-
 export class PageMapView {
   FAQPage = PageFAQ;
   FeedbackPage = PageFeedback;
@@ -29,7 +30,8 @@ export class PageMapView {
   constructor(
     private viewController: ViewController,
     private navParams: NavParams,
-    private markersService: MarkersService
+    private markersService: MarkersService,
+    private platform: Platform,
   ) {
     this.id = navParams.get('id');
     this.isOverlay = this.viewController.isOverlay;
@@ -41,6 +43,21 @@ export class PageMapView {
 
   close() {
     this.viewController.dismiss();
+  }
+
+  navigate() {
+    if (this.platform.is('cordova')) {
+      directions.navigateTo(
+        this.marker.coords.lat,
+        this.marker.coords.lng,
+      );
+    } else {
+      window.open(
+        'http://maps.google.com/maps?daddr=' 
+          + this.marker.coords.lat + ',' + this.marker.coords.lng + '&saddr=My+Location',
+        '_blank'
+      );
+    }
   }
 
   private setMarker() {
