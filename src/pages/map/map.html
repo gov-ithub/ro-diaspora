@@ -11,10 +11,14 @@
 
 <ion-content scroll="false">
 
-  <ion-fab right bottom>
+  <ion-fab *ngIf="userPosition" right bottom>
     <button ion-fab (click)="locate()"><ion-icon name="locate"></ion-icon></button>
   </ion-fab>
 
   <div id="gmap"></div>
+  <div id="search">
+    <input placeholder="Caută adresa..." />
+    <button (click)="resetSearch()"><ion-icon name="close"></ion-icon></button>
+  </div>
 
 </ion-content>
