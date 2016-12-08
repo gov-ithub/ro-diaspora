@@ -18,10 +18,26 @@ const latLngEurope: google.maps.LatLngLiteral = {lat: 49.1569609, lng: 13.898136
 })
 export class PageMap {
 
+  userPosition: google.maps.LatLngLiteral;
+
   private map: google.maps.Map;
   private userMarker: google.maps.Marker;
-  private position: google.maps.LatLngLiteral;
   private markers: MarkerVotingStation[];
+  private searchBox: google.maps.places.SearchBox;
+  private searchEl: HTMLElement;
+  private searchInput: HTMLInputElement;
+  private markerIconUser: google.maps.Icon = {
+    url: 'assets/icon/marker-user.png',
+    size: new google.maps.Size(80, 80),
+    anchor: new google.maps.Point(0, 30),
+    scaledSize: new google.maps.Size(30, 30)
+  };
+  private markerIconVotingStation: google.maps.Icon = {
+    url: 'assets/icon/marker-voting-station.png',
+    size: new google.maps.Size(80, 101),
+    anchor: new google.maps.Point(0, 38),
+    scaledSize: new google.maps.Size(30, 38)
+  };
   private subscribePosition: Subscription;
 
   constructor(
@@ -33,21 +49,32 @@ export class PageMap {
   ) { }
 
   ionViewWillEnter() {
+    this.searchEl = document.getElementById("search");
+    this.searchInput = this.searchEl.getElementsByTagName('input')[0];
     this.setMap();
   }
 
   ionViewDidEnter() {
     this.setMarkers();
     this.setUserMarker();
+    this.setSearch();
   }
 
   ionViewDidLeave() {
     this.unsubscribe();
   }
 
-  locate() {
-    this.map.panTo(this.position);
-    this.map.setZoom(16);
+  locate(position: any = this.userPosition) {
+    if ( position ) {
+      this.map.panTo(position);
+      this.map.setZoom(16);
+    }
+  }
+
+  resetSearch() {
+    this.map.panTo(latLngEurope);
+    this.map.setZoom(4);
+    this.searchInput.value = '';
   }
 
   private setMap() {
@@ -63,19 +90,21 @@ export class PageMap {
     this.map = new google.maps.Map(document.getElementById("gmap"), mapOptions);
 
     // set user marker
-    this.userMarker = new google.maps.Marker({ map: this.map, position: null });
+    this.userMarker = new google.maps.Marker({ map: this.map, position: null, icon: this.markerIconUser });
   }
 
   private setMarkers() {
+
     // get & set markers
     this.markers = this.markersService.getMarkers()
     let markers = this.markers.map(marker => {
       let options = {
-        position: { 
-          lat: Number(marker.coords.lat), 
+        map: this.map,
+        position: {
+          lat: Number(marker.coords.lat),
           lng: Number(marker.coords.lng),
         },
-        map: this.map
+        icon: this.markerIconVotingStation
       };
       let output = new google.maps.Marker(options)
       output.addListener('click', () => {
@@ -94,9 +123,47 @@ export class PageMap {
     // get user location and update user marker
     this.subscribePosition = this.positionService.getPosition()
       .subscribe(position => {
-        this.position = { lat: position.coords.latitude, lng: position.coords.longitude };
-        this.userMarker.setOptions({ position: this.position, visible: true })
+        this.userPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
+        this.userMarker.setOptions({ position: this.userPosition, visible: true })
       });
+
+  }
+
+  private setSearch() {
+
+    let markers = [];
+
+    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.searchEl);
+    this.searchBox = new google.maps.places.SearchBox(this.searchInput);
+
+    this.searchBox.addListener('places_changed', () => {
+      let places = this.searchBox.getPlaces();
+
+      if (places.length == 0) return;
+
+      // clear out the old markers
+      markers.forEach(marker => marker.setMap(null));
+      markers = [];
+
+      // for each place, get the icon, name and location
+      let bounds = new google.maps.LatLngBounds();
+      places.forEach(place => {
+        if (!place.geometry) return;
+
+        // create a marker for each place
+        markers.push(new google.maps.Marker({
+          map: this.map,
+          position: place.geometry.location,
+          icon: this.markerIconUser,
+          title: place.name
+        }));
+
+        if (place.geometry.viewport) bounds.union(place.geometry.viewport);
+        else bounds.extend(place.geometry.location);
+      });
+      this.map.fitBounds(bounds);
+    });
+
   }
 
   private unsubscribe() {
