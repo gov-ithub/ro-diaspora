@@ -7,6 +7,7 @@ import { PageMap } from '../pages/map/map';
 import { PageMapView } from '../pages/map-view/map-view';
 import { PageInfo } from '../pages/info/info';
 import { PageFAQ } from '../pages/faq/faq';
+import { PageFeedback } from '../pages/feedback/feedback';
 
 import { PositionService } from '../providers/position';
 import { MarkersService } from '../providers/markers';
@@ -19,7 +20,8 @@ import { LinkyModule } from 'angular2-linky';
     PageMap,
     PageMapView,
     PageInfo,
-    PageFAQ
+    PageFAQ,
+    PageFeedback
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -30,8 +32,9 @@ import { LinkyModule } from 'angular2-linky';
     MyApp,
     PageMap,
     PageMapView,
+    PageFAQ,
     PageInfo,
-    PageFAQ
+    PageFeedback
   ],
   providers: [
     {
