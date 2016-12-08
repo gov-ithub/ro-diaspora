@@ -12,9 +12,7 @@
   <ion-list>
     <ion-item padding *ngFor="let i of FAQItems" text-wrap (click)="toggleDetails(i)">
       <h2>{{ i.title }}</h2>
-      <div *ngIf="i.isExpanded" style="white-space: pre-wrap;">
-        {{ i.description }}
-      </div>
+      <div *ngIf="i.isExpanded" style="white-space: pre-wrap;">{{ i.description }}</div>
       <ion-icon color="primary" item-right [name]="i.icon"></ion-icon>
     </ion-item>
   </ion-list>
