@@ -5,6 +5,7 @@ import { StatusBar, Splashscreen, Diagnostic, Dialogs } from 'ionic-native';
 import { PageMap } from '../pages/map/map';
 import { PageFAQ } from '../pages/faq/faq';
 import { PageFeedback } from '../pages/feedback/feedback';
+import { PageInfo } from '../pages/info/info';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,8 +22,8 @@ export class MyApp {
 
     this.pages = [
       { title: 'Hartă', icon: 'map', component: PageMap },
-      { title: 'Întrebări Frecvente', icon: 'help-circle', component: PageFAQ },
-      { title: 'Opinia ta', icon: 'checkbox', component: PageFeedback }
+      { title: 'Opinia ta', icon: 'checkbox', component: PageFeedback },
+      { title: 'Info Utile', icon: 'help-circle', component: PageInfo }
     ];
   }
 
