@@ -23,7 +23,7 @@ export class MyApp {
     this.pages = [
       { title: 'Hartă', icon: 'home', component: PageMap },
       { title: 'Informații', icon: 'information-circle', component: PageInfo },
-      { title: 'Întrebări Frecvente', icon: 'help-circle', component: PageFAQ }
+      { title: 'Întrebări Frecvente', icon: 'help-circle', component: PageFAQ },
       { title: 'Opinia ta', icon: 'paper', component: PageFeedback }
     ];
   }

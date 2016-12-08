@@ -20,7 +20,7 @@ import { LinkyModule } from 'angular2-linky';
     PageMap,
     PageMapView,
     PageInfo,
-    PageFAQ
+    PageFAQ,
     PageFeedback
   ],
   imports: [
@@ -32,7 +32,7 @@ import { LinkyModule } from 'angular2-linky';
     MyApp,
     PageMap,
     PageMapView,
-    PageFAQ
+    PageFAQ,
     PageInfo,
     PageFeedback
   ],
