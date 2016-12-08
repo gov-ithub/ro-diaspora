@@ -1,0 +1,23 @@
+page-faq {
+  ion-list {
+    ion-item {
+      background-color: transparent;
+      padding-left: 0 !important;
+    }
+    ion-label {
+      h2 {
+        margin: 0 !important;
+      }
+      div {
+        text-transform: none;
+        padding: 1em 0;
+        white-space: normal;
+        line-height: 1.7;
+      }
+    }
+    ion-icon[item-right] {
+      align-self: flex-start;
+      margin-right: 0 !important;
+    }
+  }
+}
