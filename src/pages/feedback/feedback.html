@@ -10,12 +10,14 @@
 <ion-content scroll="false">
   <ion-slides #slider [options]="sliderOptions" padding>
     <ion-slide>
-      <h2>OPINIA TA</h2>
+      <h2>MINI SURVEY</h2>
       <p>
-        Lorem ipsum dolor sit amet
+       Ajută-ne să facem această aplicație mai bună!
+      </p><p>
+       Răspunde scurt la 3 întrebări, cu Da/Nu! 
       </p>
       <button ion-button icon-only (click)="nextSlide()" clear color="dark">
-        <ion-icon name="arrow-dropright"></ion-icon>
+        <ion-icon name="arrow-forward"></ion-icon>
       </button>
     </ion-slide>
     <ion-slide *ngFor="let question of slides">
@@ -35,7 +37,11 @@
       </p>
     </ion-slide>
     <ion-slide>
-      <h2>Spune-le și prietenilor tăi</h2>
+      <p>
+        Mulțumim pentru răspunsuri!
+      </p><p>
+        Pregătim deja o versiune nouă a acestei aplicații
+      </p>
       <button ion-button (click)="facebookShare()" icon-only clear>
         <ion-icon name="logo-facebook"></ion-icon>
       </button>      
