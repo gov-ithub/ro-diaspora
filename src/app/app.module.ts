@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 
@@ -39,7 +40,8 @@ import { LinkyModule } from 'angular2-linky';
       useClass: IonicErrorHandler
     },
     PositionService,
-    MarkersService
+    MarkersService,
+    Storage
   ]
 })
 export class AppModule {}
