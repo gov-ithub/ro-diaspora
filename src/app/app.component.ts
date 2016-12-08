@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar, Splashscreen, Diagnostic, Dialogs } from 'ionic-native';
 
 import { PageMap } from '../pages/map/map';
 import { PageFAQ } from '../pages/faq/faq';
@@ -28,10 +28,18 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+      Diagnostic.isLocationEnabled()
+        .then((enabled) => {
+          if ( !enabled ) {
+            Dialogs.confirm(
+              'Pentru a te putea localiza pe hartă, avem nevoie să pornești locația.', 'Pornești locația?', ['Da', 'Nu']
+            ).then((button) => {
+              if ( button == 1 ) Diagnostic.switchToLocationSettings();
+            });
+          }
+        });
     });
   }
 
