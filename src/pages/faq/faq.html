@@ -11,11 +11,10 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item padding *ngFor="let i of FAQItems" (click)="toggleDetails(i)" text-wrap>
-      <ion-icon color="primary" item-right [name]="i.icon"></ion-icon>
+    <ion-item padding *ngFor="let i of FAQItems" text-wrap>
+      <ion-icon color="primary" item-right [name]="i.icon" (click)="toggleDetails(i)"></ion-icon>
       <h2>{{ i.title }}</h2>
-      <div *ngIf="i.isExpanded">
-        {{ i.description }}
+      <div *ngIf="i.isExpanded" [innerHTML]="i.description | linky">
       </div>
     </ion-item>
   </ion-list>

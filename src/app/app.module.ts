@@ -11,6 +11,8 @@ import { PageFAQ } from '../pages/faq/faq';
 import { PositionService } from '../providers/position';
 import { MarkersService } from '../providers/markers';
 
+import { LinkyModule } from 'angular2-linky';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -21,7 +23,8 @@ import { MarkersService } from '../providers/markers';
     PageFAQ
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    LinkyModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
