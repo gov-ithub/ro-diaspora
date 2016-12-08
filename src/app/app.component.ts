@@ -5,6 +5,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { PageMap } from '../pages/map/map';
 import { PageInfo } from '../pages/info/info';
 import { PageFAQ } from '../pages/faq/faq';
+import { PageFeedback } from '../pages/feedback/feedback';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,6 +24,7 @@ export class MyApp {
       { title: 'Hartă', icon: 'home', component: PageMap },
       { title: 'Informații', icon: 'information-circle', component: PageInfo },
       { title: 'Întrebări Frecvente', icon: 'help-circle', component: PageFAQ }
+      { title: 'Opinia ta', icon: 'paper', component: PageFeedback }
     ];
   }
 
