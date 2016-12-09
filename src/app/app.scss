@@ -14,3 +14,15 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.ion-md-hublogo:before {
+  background-size: 305px 87px;
+  width: 305px;
+  height: 87px;
+  opacity: 0.1;
+}
+
+.ion-md-hublogo {
+  position: absolute;
+  bottom: 20px;
+}
