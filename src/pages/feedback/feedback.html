@@ -25,16 +25,28 @@
     <ion-slide *ngFor="let question of slides">
       <h2>OPINIA TA</h2>
       <p>{{ question.content }}</p>
-      <button
-        *ngFor="let button of question.buttons"
-        ion-button
-        color="{{ button.color }}"
-        (click)="answerQuestion(question.id, button.value)">
-        {{ button.label }}
-      </button>
-      <p>
+      <div *ngIf="question.status.active">
+        <button
+          *ngFor="let button of question.buttons"
+          ion-button
+          color="{{ button.color }}"
+          (click)="answerQuestion(question.id, button.value)">
+          {{ button.label }}
+        </button>
+      </div>
+      <div *ngIf="!question.status.active">
+        <p style="font-size: 1em">
+          {{ question.status.answer }} 
+        </p>
+      </div>
+      <p *ngIf="question.status.active">
         <button clear (click)="nextSlide()" ion-button>
           Răspund mai târziu
+        </button>
+      </p>
+      <p *ngIf="!question.status.active">
+        <button clear (click)="nextSlide()" ion-button icon-only color="dark">
+          <ion-icon name="arrow-forward"></ion-icon>
         </button>
       </p>
     </ion-slide>
