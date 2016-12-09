@@ -1,5 +1,4 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Detalii</ion-title>
     <ion-buttons end *ngIf="isOverlay">
@@ -8,11 +7,10 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content>
-  <ion-slides 
+  <ion-slides
     *ngIf="marker && image"
     [options]="sliderOptions"
     class="cover">
