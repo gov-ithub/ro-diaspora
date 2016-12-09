@@ -19,4 +19,16 @@ $> ionic serve
 
 ----------
 
+## Troubleshooting
+
+### Uncaught (in promise): cordova_not_available
+`cordova.js` are trebui să ofere API-uri mock pentru plugin-uri sau alte funcții native, însă nu o face foarte bine. Pentru development / testare în browser, este recomandat să folosiți platforma `browser` în loc de `ionic serve`:
+
+```
+ionic platform add browser
+ionic run browser
+```
+
+În Google Chrome Developer tools puteți folosi `Toggle Devices Toolbar` pentru a simula diverse device-uri, iar ionic va oferi alternative pentru funcțiile native de mobil (geolocation, cameră, accelorometru, splashscreen, etc).
+
 **Made with :heart: by [GovITHub](http://ithub.gov.ro)**
