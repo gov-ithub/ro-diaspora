@@ -88,25 +88,25 @@ export class PageMap {
   }
 
   private presentToast() {
-    this.storage.get('toast-intro').then((val) => {
-      if (val === true) {
-        return;
-      }
+    this.platform.ready().then(() => {
+      this.storage.keys().then((data) => {
+        if (data.indexOf('pages-toast-dismissed') == -1) {
+          let toast = this.toastController.create({
+            message: 'Apasă un punct de pe hartă pentru detalii',
+            position: 'bottom',
+            showCloseButton: true,
+            closeButtonText: 'Închide',
+            dismissOnPageChange: true,
+            cssClass: 'toast-gmaps',
+          });
+          
+          toast.onDidDismiss(() => {
+            this.storage.set('pages-toast-dismissed', true);
+          });
 
-      let toast = this.toastController.create({
-        message: 'Apasă un punct de pe hartă pentru detalii',
-        position: 'bottom',
-        showCloseButton: true,
-        closeButtonText: 'Închide',
-        dismissOnPageChange: true,
-        cssClass: 'toast-gmaps',
+          toast.present();
+        } 
       });
-      
-      toast.onDidDismiss(() => {
-        this.storage.set('toast-intro', true);
-      });
-
-      toast.present();
     });
   }
 
