@@ -40,18 +40,18 @@
         </div>
         <div ion-item>
           <ion-icon name="navigate" item-left></ion-icon>
-          <button ion-button (click)="navigate()" outline>
+          <button ion-button (click)="navigate()" style="padding: 20px;">
             Vezi ruta
           </button>
         </div>
       </ion-list>
-      <div ion-item>
-        <button ion-button [navPush]="FAQPage" icon-left>
+      <div ion-item no-lines>
+        <button ion-button [navPush]="FAQPage" icon-left full style="padding: 20px; margin-bottom: 10px">
           <ion-icon name="help-circle"></ion-icon>
           Citește Mini-Ghidul Alegătorului
         </button>
         <br />
-        <button ion-button [navPush]="FeedbackPage" icon-left>
+        <button ion-button [navPush]="FeedbackPage" icon-left full style="padding: 20px;">
           <ion-icon name="paper"></ion-icon>
           Spune-ne opinia ta
         </button>
