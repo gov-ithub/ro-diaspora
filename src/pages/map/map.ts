@@ -45,6 +45,12 @@ export class PageMap {
     anchor: new google.maps.Point(0, 38),
     scaledSize: new google.maps.Size(30, 38)
   };
+  private markerIconLocation: google.maps.Icon = {
+    url: 'assets/icon/marker-location.png',
+    size: new google.maps.Size(82, 103),
+    anchor: new google.maps.Point(0, 41),
+    scaledSize: new google.maps.Size(30, 38)
+  };
   private subscribePosition: Subscription;
 
   constructor(
@@ -127,7 +133,6 @@ export class PageMap {
   }
 
   private setMarkers() {
-
     // get & set markers
     this.markers = this.markersService.getMarkers()
     let markers = this.markers.map(marker => {
@@ -163,7 +168,6 @@ export class PageMap {
   }
 
   private setSearch() {
-
     let markers = [];
 
     this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.searchEl);
@@ -187,7 +191,7 @@ export class PageMap {
         markers.push(new google.maps.Marker({
           map: this.map,
           position: place.geometry.location,
-          icon: this.markerIconUser,
+          icon: this.markerIconLocation,
           title: place.name
         }));
 
@@ -196,7 +200,6 @@ export class PageMap {
       });
       this.map.fitBounds(bounds);
     });
-
   }
 
   private unsubscribe() {
