@@ -29,6 +29,7 @@ export class PageMap {
 
   private map: google.maps.Map;
   private userMarker: google.maps.Marker;
+  private locationMarker: google.maps.Marker;
   private markers: MarkerVotingStation[];
   private searchBox: google.maps.places.SearchBox;
   private searchEl: HTMLElement;
@@ -85,12 +86,21 @@ export class PageMap {
       this.map.panTo(position);
       this.map.setZoom(16);
     }
+    
+    this.resetLocationMarker();
   }
 
   resetSearch() {
     this.map.panTo(latLngEurope);
     this.map.setZoom(4);
     this.searchInput.value = '';
+    this.resetLocationMarker();
+  }
+
+  private resetLocationMarker() {
+    if (this.locationMarker) {
+      this.locationMarker.setMap(null);
+    }
   }
 
   private presentToast() {
@@ -188,12 +198,14 @@ export class PageMap {
         if (!place.geometry) return;
 
         // create a marker for each place
-        markers.push(new google.maps.Marker({
+        this.locationMarker = new google.maps.Marker({
           map: this.map,
           position: place.geometry.location,
           icon: this.markerIconLocation,
           title: place.name
-        }));
+        });
+
+        markers.push(this.locationMarker);
 
         if (place.geometry.viewport) bounds.union(place.geometry.viewport);
         else bounds.extend(place.geometry.location);
