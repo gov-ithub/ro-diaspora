@@ -93,16 +93,3 @@ $ionicons-font-path: "../assets/fonts";
   height: 103px;
   content: "";
 }
-
-.ion-ios-maelogo:before,
-.ion-ios-maelogo-outline:before,
-.ion-md-maelogo:before { 
-  @extend .ion; 
-  background-image: url(../assets/icon/logo_mae.png); 
-  background-size: 360px 360px; 
-  display: inline-block;
-  width: 360px;
-  height: 360px;
-  content: "";
-}
-
