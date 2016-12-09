@@ -74,7 +74,13 @@ $ionicons-font-path: "../assets/fonts";
 // Custom icons
 .ion-ios-applogo:before,
 .ion-ios-applogo-outline:before,
-.ion-md-applogo:before { @extend .ion; width: 133px; height: 24px; padding-top: 6px; vertical-align: middle; content: url(../assets/icon/logo.svg); }
+.ion-md-applogo:before { 
+  @extend .ion; 
+  width: 133px; 
+  height: 24px; 
+  vertical-align: middle; 
+  content: url(../assets/icon/logo.svg); 
+}
 
 .ion-ios-hublogo:before,
 .ion-ios-hublogo-outline:before,
@@ -85,6 +91,18 @@ $ionicons-font-path: "../assets/fonts";
   display: inline-block;
   width: 360px;
   height: 103px;
+  content: "";
+}
+
+.ion-ios-maelogo:before,
+.ion-ios-maelogo-outline:before,
+.ion-md-maelogo:before { 
+  @extend .ion; 
+  background-image: url(../assets/icon/logo_mae.png); 
+  background-size: 360px 360px; 
+  display: inline-block;
+  width: 360px;
+  height: 360px;
   content: "";
 }
 
