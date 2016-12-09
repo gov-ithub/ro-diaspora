@@ -1,16 +1,15 @@
 <ion-header>
   <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
       <ion-icon name="applogo"></ion-icon>
     </ion-title>
-    <button ion-button menuToggle end>
-      <ion-icon name="menu"></ion-icon>
-    </button>
   </ion-navbar>
 </ion-header>
 
 <ion-content scroll="false">
-
   <ion-fab *ngIf="userPosition" right bottom>
     <button ion-fab (click)="locate()"><ion-icon name="locate"></ion-icon></button>
   </ion-fab>

@@ -1,9 +1,11 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Opinia ta</ion-title>
-    <button ion-button menuToggle end>
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-title>
+      Opinia ta
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -14,7 +16,7 @@
       <p>
        Ajută-ne să facem această aplicație mai bună!
       </p><p>
-       Răspunde scurt la 3 întrebări, cu Da/Nu! 
+       Răspunde scurt la 3 întrebări, cu Da/Nu!
       </p>
       <button ion-button icon-only (click)="nextSlide()" clear color="dark">
         <ion-icon name="arrow-forward"></ion-icon>
@@ -23,10 +25,10 @@
     <ion-slide *ngFor="let question of slides">
       <h2>OPINIA TA</h2>
       <p>{{ question.content }}</p>
-      <button 
+      <button
         *ngFor="let button of question.buttons"
-        ion-button 
-        color="{{ button.color }}" 
+        ion-button
+        color="{{ button.color }}"
         (click)="answerQuestion(question.id, button.value)">
         {{ button.label }}
       </button>
@@ -44,13 +46,13 @@
       </p>
       <button ion-button (click)="facebookShare()" icon-only clear>
         <ion-icon name="logo-facebook"></ion-icon>
-      </button>      
+      </button>
       <button ion-button (click)="twitterShare()" icon-only clear>
         <ion-icon name="logo-twitter"></ion-icon>
-      </button>      
+      </button>
       <button ion-button (click)="whatsappShare()" icon-only clear>
         <ion-icon name="logo-whatsapp"></ion-icon>
-      </button>      
+      </button>
     </ion-slide>
   </ion-slides>
 </ion-content>
