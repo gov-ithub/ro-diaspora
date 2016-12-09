@@ -3,7 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen, Diagnostic, Dialogs } from 'ionic-native';
 
 import { PageMap } from '../pages/map/map';
-import { PageFAQ } from '../pages/faq/faq';
 import { PageFeedback } from '../pages/feedback/feedback';
 import { PageInfo } from '../pages/info/info';
 
