@@ -16,8 +16,8 @@ export class PageWelcome {
   ) { }
 
   close() {
-    this.navController.setRoot(PageMap);
     this.storage.set('page-welcome-saw', true);
+    this.navController.setRoot(PageMap);
   }
 
 }

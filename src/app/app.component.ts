@@ -22,11 +22,6 @@ export class MyApp {
     public platform: Platform,
     private storage: Storage
   ) {
-    storage.get('page-welcome-saw').then((saw) => {
-      if (saw === true) this.rootPage = PageMap;
-      else this.rootPage = PageWelcome;
-    });
-
     this.initializeApp();
 
     this.pages = [
@@ -38,6 +33,11 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.storage.keys().then((data) => {
+        if ( data.indexOf('page-welcome-saw') == -1 ) this.rootPage = PageWelcome;
+        else this.rootPage = PageMap;
+      });
+
       StatusBar.styleDefault();
 
       setTimeout(() => {
