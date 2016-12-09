@@ -7,12 +7,13 @@
   </ion-header>
 
   <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon name="{{p.icon}}"></ion-icon>
+    <ion-list class="sidebar">
+      <button menuClose ion-item clear (click)="openPage(p)" *ngFor="let p of pages" no-lines style="color: #387EF5; border-bottom: 1px solid #CCC">
+        <ion-icon name="{{p.icon}}" item-left></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
+    <ion-icon name="maelogo"></ion-icon>
     <ion-icon name="hublogo"></ion-icon>
   </ion-content>
 

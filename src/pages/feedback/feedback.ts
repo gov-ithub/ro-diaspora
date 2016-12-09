@@ -75,9 +75,9 @@ export class PageFeedback {
 
   whatsappShare() {
     SocialSharing.shareViaWhatsApp(
-      "Mesaj pe WhatsApp",
-      null, // image
-      "http://ithub.gov.ro", // url
+      "Unde votezi dacă ești român și locuiești în străinătate? Găsește cea mai apropiată secție de vot cu ROdiaspora - aplicația românului de pretutindeni!",
+      "http://ithub.gov.ro/wp-content/uploads/2016/12/8a4314ac88ce12b296a747f869b651b7-1.jpg", 
+      "http://ithub.gov.ro/2016/12/11/rodiaspora/", 
     ).then(() => { 
       console.log('success');
     }, () => {
@@ -87,9 +87,9 @@ export class PageFeedback {
 
   facebookShare() {
     SocialSharing.shareViaFacebook(
-      "Mesaj pe Facebook",
-      null, // image
-      "http://ithub.gov.ro", // url
+      "Unde votezi dacă ești român și locuiești în străinătate? Găsește cea mai apropiată secție de vot cu ROdiaspora - aplicația românului de pretutindeni!",
+      null,
+      "http://ithub.gov.ro/2016/12/09/rodiaspora/", 
     ).then(() => { 
       console.log('success');
     }, () => {
@@ -99,9 +99,9 @@ export class PageFeedback {
 
   twitterShare() {
     SocialSharing.shareViaTwitter(
-      "Mesaj pe Twitter",
-      null, // image
-      "http://ithub.gov.ro", // url
+      "Unde votezi dacă ești român și locuiești în străinătate? Găsește cea mai apropiată secție de vot cu ROdiaspora - aplicația românului de pretutindeni!",
+      "http://ithub.gov.ro/wp-content/uploads/2016/12/8a4314ac88ce12b296a747f869b651b7    -1.jpg", 
+      "http://ithub.gov.ro/2016/12/11/rodiaspora/", 
     ).then(() => { 
       console.log('success');
     }, () => {
