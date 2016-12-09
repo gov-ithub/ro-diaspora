@@ -1,0 +1,9 @@
+page-welcome {
+  ion-content {
+    background-image: url(../assets/welcome-bg.png); background-size: cover; color: #fff;
+    .scroll-content { display: flex; align-items: center; justify-content: center; }
+    ion-icon.icon:before { width: 210px; height: 40px; }
+    p { color: #fff; font-size: 1.6rem; }
+    hr { width: 25%; background-color: rgba(255, 255, 255, .25) !important; }
+  }
+}

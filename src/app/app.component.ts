@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen, Diagnostic, Dialogs } from 'ionic-native';
+import { Storage } from '@ionic/storage';
 
+import { PageWelcome } from '../pages/welcome/welcome';
 import { PageMap } from '../pages/map/map';
 import { PageFeedback } from '../pages/feedback/feedback';
 import { PageInfo } from '../pages/info/info';
@@ -12,11 +14,14 @@ import { PageInfo } from '../pages/info/info';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = PageMap;
+  rootPage: any;
 
   pages: Array<{title: string, icon: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(
+    public platform: Platform,
+    private storage: Storage
+  ) {
     this.initializeApp();
 
     this.pages = [
@@ -28,6 +33,11 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.storage.keys().then((data) => {
+        if ( data.indexOf('page-welcome-saw') == -1 ) this.rootPage = PageWelcome;
+        else this.rootPage = PageMap;
+      });
+
       StatusBar.styleDefault();
 
       setTimeout(() => {
