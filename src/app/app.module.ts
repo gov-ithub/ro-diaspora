@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 
+import { PageWelcome } from '../pages/welcome/welcome';
 import { PageMap } from '../pages/map/map';
 import { PageMapView } from '../pages/map-view/map-view';
 import { PageFAQ } from '../pages/faq/faq';
@@ -18,6 +19,7 @@ import { LinkyModule } from 'angular2-linky';
 @NgModule({
   declarations: [
     MyApp,
+    PageWelcome,
     PageMap,
     PageMapView,
     PageFAQ,
@@ -31,6 +33,7 @@ import { LinkyModule } from 'angular2-linky';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    PageWelcome,
     PageMap,
     PageMapView,
     PageFAQ,
