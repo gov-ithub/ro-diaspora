@@ -36,9 +36,24 @@ export class PageFeedback {
   slides = [];
   
   private allSlides = [
-    {content: 'Ai găsit ușor secția de vot selectată?', id: 1, buttons: DefaultButtons},
-    {content: 'Secția de vot era poziționată corect pe hartă?', id: 2, buttons: DefaultButtons},
-    {content: 'Era aglomerat sau nu la secția de vot?', id: 3, buttons: DefaultButtons},
+    {
+      content: 'Ai găsit ușor secția de vot selectată?', 
+      id: 1, 
+      buttons: DefaultButtons,
+      status: { active: true },
+    },
+    {
+      content: 'Secția de vot era poziționată corect pe hartă?', 
+      id: 2, 
+      buttons: DefaultButtons,
+      status: { active: true },
+    },
+    {
+      content: 'Era aglomerat sau nu la secția de vot?', 
+      id: 3,
+      buttons: DefaultButtons,
+      status: { active: true },
+    },
   ];
   
   constructor(
@@ -52,6 +67,14 @@ export class PageFeedback {
         let slide = this.allSlides[i];
         if (data.indexOf(this.getQuestionKey(slide.id)) == -1) {
           this.slides.push(slide);
+        } else {
+          this.storage.get(this.getQuestionKey(slide.id)).then((val) => {
+            this.slides.push({
+              content: slide.content,
+              id: slide.id,
+              status: { active: false, answer: val === 1 ? 'NU' : 'DA' },
+            });
+          });
         }
       }
     });
