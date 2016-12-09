@@ -29,7 +29,7 @@ export class PageMap {
 
   private map: google.maps.Map;
   private userMarker: google.maps.Marker;
-  private locationMarker: google.maps.Marker;
+  private locationMarkers: google.maps.Marker[] = [];
   private markers: MarkerVotingStation[];
   private searchBox: google.maps.places.SearchBox;
   private searchEl: HTMLElement;
@@ -87,19 +87,21 @@ export class PageMap {
       this.map.setZoom(16);
     }
     
-    this.resetLocationMarker();
+    this.resetLocationMarkers();
+    this.searchInput.value = '';
   }
 
   resetSearch() {
     this.map.panTo(latLngEurope);
     this.map.setZoom(4);
     this.searchInput.value = '';
-    this.resetLocationMarker();
+    this.resetLocationMarkers();
   }
 
-  private resetLocationMarker() {
-    if (this.locationMarker) {
-      this.locationMarker.setMap(null);
+  private resetLocationMarkers() {
+    if (this.locationMarkers.length) {
+      this.locationMarkers.forEach(marker => marker.setMap(null));
+      this.locationMarkers = [];
     }
   }
 
@@ -178,19 +180,14 @@ export class PageMap {
   }
 
   private setSearch() {
-    let markers = [];
-
     this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.searchEl);
     this.searchBox = new google.maps.places.SearchBox(this.searchInput);
 
     this.searchBox.addListener('places_changed', () => {
       let places = this.searchBox.getPlaces();
+      this.resetLocationMarkers();
 
       if (places.length == 0) return;
-
-      // clear out the old markers
-      markers.forEach(marker => marker.setMap(null));
-      markers = [];
 
       // for each place, get the icon, name and location
       let bounds = new google.maps.LatLngBounds();
@@ -198,14 +195,12 @@ export class PageMap {
         if (!place.geometry) return;
 
         // create a marker for each place
-        this.locationMarker = new google.maps.Marker({
+        this.locationMarkers.push(new google.maps.Marker({
           map: this.map,
           position: place.geometry.location,
           icon: this.markerIconLocation,
           title: place.name
-        });
-
-        markers.push(this.locationMarker);
+        }));
 
         if (place.geometry.viewport) bounds.union(place.geometry.viewport);
         else bounds.extend(place.geometry.location);
