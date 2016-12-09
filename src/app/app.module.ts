@@ -28,7 +28,7 @@ import { LinkyModule } from 'angular2-linky';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    LinkyModule
+    LinkyModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
