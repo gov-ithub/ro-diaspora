@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { 
   Platform, 
   NavController, 
@@ -24,6 +24,7 @@ const latLngEurope: google.maps.LatLngLiteral = {lat: 49.1569609, lng: 13.898136
   templateUrl: 'map.html'
 })
 export class PageMap {
+  @ViewChild("gmap") mapElement: ElementRef;
 
   userPosition: google.maps.LatLngLiteral;
 
@@ -138,8 +139,9 @@ export class PageMap {
       minZoom: 2,
       zoom: 4
     };
-    this.map = new google.maps.Map(document.getElementById("gmap"), mapOptions);
-    
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
     // set user marker
     this.userMarker = new google.maps.Marker({ map: this.map, position: null, icon: this.markerIconUser });
   }
@@ -215,5 +217,4 @@ export class PageMap {
 
     this.subscribePosition.unsubscribe();
   }
-
 }
