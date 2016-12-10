@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Slides } from 'ionic-angular';
+import { Slides, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { SocialSharing } from 'ionic-native';
@@ -56,8 +56,11 @@ export class PageFeedback {
     },
   ];
   
+  private unregisterBackButtonOverride; 
+
   constructor(
-    private storage: Storage
+    private storage: Storage,
+    private platform: Platform,
   ) {}
 
   ionViewDidLoad() {
@@ -84,8 +87,26 @@ export class PageFeedback {
     return 'feedback-' + id;
   }
 
+  private registerBackButtonOverride() {
+    this.unregisterBackButtonOverride = this.platform.registerBackButtonAction(
+      () => { this.slider.slidePrev(); },
+      101,
+    );   
+  }
+
   nextSlide() {
     this.slider.slideNext();
+  }
+
+  onSlideChanged() {
+    if (this.slider.isBeginning()) {
+      this.unregisterBackButtonOverride();
+      this.unregisterBackButtonOverride = null;
+    } else {
+      if (!this.unregisterBackButtonOverride) {
+        this.registerBackButtonOverride();
+      }
+    }
   }
 
   answerQuestion(id: number, answer: number) {
