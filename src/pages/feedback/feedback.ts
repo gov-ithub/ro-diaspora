@@ -83,6 +83,11 @@ export class PageFeedback {
     });
   }
 
+  ionViewDidLeave() {
+    this.unregisterBackButtonOverride();
+    this.unregisterBackButtonOverride = null;
+  }
+
   private getQuestionKey(id: number) {
     return 'feedback-' + id;
   }
