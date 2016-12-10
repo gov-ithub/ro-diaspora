@@ -29,6 +29,7 @@ export class PageMap {
 
   private map: google.maps.Map;
   private userMarker: google.maps.Marker;
+  private locationMarkers: google.maps.Marker[] = [];
   private markers: MarkerVotingStation[];
   private searchBox: google.maps.places.SearchBox;
   private searchEl: HTMLElement;
@@ -43,6 +44,12 @@ export class PageMap {
     url: 'assets/icon/marker-voting-station.png',
     size: new google.maps.Size(80, 101),
     anchor: new google.maps.Point(0, 38),
+    scaledSize: new google.maps.Size(30, 38)
+  };
+  private markerIconLocation: google.maps.Icon = {
+    url: 'assets/icon/marker-location.png',
+    size: new google.maps.Size(82, 103),
+    anchor: new google.maps.Point(0, 41),
     scaledSize: new google.maps.Size(30, 38)
   };
   private subscribePosition: Subscription;
@@ -79,12 +86,23 @@ export class PageMap {
       this.map.panTo(position);
       this.map.setZoom(16);
     }
+    
+    this.resetLocationMarkers();
+    this.searchInput.value = '';
   }
 
   resetSearch() {
     this.map.panTo(latLngEurope);
     this.map.setZoom(4);
     this.searchInput.value = '';
+    this.resetLocationMarkers();
+  }
+
+  private resetLocationMarkers() {
+    if (this.locationMarkers.length) {
+      this.locationMarkers.forEach(marker => marker.setMap(null));
+      this.locationMarkers = [];
+    }
   }
 
   private presentToast() {
@@ -127,7 +145,6 @@ export class PageMap {
   }
 
   private setMarkers() {
-
     // get & set markers
     this.markers = this.markersService.getMarkers()
     let markers = this.markers.map(marker => {
@@ -163,20 +180,14 @@ export class PageMap {
   }
 
   private setSearch() {
-
-    let markers = [];
-
     this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.searchEl);
     this.searchBox = new google.maps.places.SearchBox(this.searchInput);
 
     this.searchBox.addListener('places_changed', () => {
       let places = this.searchBox.getPlaces();
+      this.resetLocationMarkers();
 
       if (places.length == 0) return;
-
-      // clear out the old markers
-      markers.forEach(marker => marker.setMap(null));
-      markers = [];
 
       // for each place, get the icon, name and location
       let bounds = new google.maps.LatLngBounds();
@@ -184,10 +195,10 @@ export class PageMap {
         if (!place.geometry) return;
 
         // create a marker for each place
-        markers.push(new google.maps.Marker({
+        this.locationMarkers.push(new google.maps.Marker({
           map: this.map,
           position: place.geometry.location,
-          icon: this.markerIconUser,
+          icon: this.markerIconLocation,
           title: place.name
         }));
 
@@ -196,7 +207,6 @@ export class PageMap {
       });
       this.map.fitBounds(bounds);
     });
-
   }
 
   private unsubscribe() {
