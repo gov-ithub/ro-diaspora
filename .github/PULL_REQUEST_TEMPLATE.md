@@ -2,6 +2,4 @@
 
 #### Test plan:
 
-#### Reviewers: @gov-ithub/romanescu-app, ...
-
-#### JIRA task: 
+#### JIRA task:
