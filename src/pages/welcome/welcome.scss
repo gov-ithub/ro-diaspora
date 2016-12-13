@@ -2,7 +2,14 @@ page-welcome {
   ion-content {
     background-image: url(../assets/welcome-bg.png); background-size: cover; color: #fff;
     .scroll-content { display: flex; align-items: center; justify-content: center; }
-    ion-icon.icon:before { width: 210px; height: 40px; }
+    ion-icon.icon {
+      &:before { width: 210px; height: 40px; }
+      + p { margin-top: 4px; margin-bottom: 60px; font-style: italic; }
+    }
     p { color: #fff; font-size: 1.6rem; }
+    button {
+      text-transform: uppercase;
+      &[large] { height: 3em; padding-left: 2em; padding-right: 2em; }
+    }
   }
 }
