@@ -1,7 +1,7 @@
 # ROdiaspora
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Dependency Status](https://david-dm.org/gov-ithub/ro-diaspora/status.svg)](https://david-dm.org/gov-ithub/ro-diaspora)
-[![devDependency Status](https://david-dm.org/gov-ithub/ro-diaspora/dev-status.svg)](https://david-dm.org/gov-ithub/ro-diaspora#info=devDependencies)
+[![Dependency Status](https://david-dm.org/gov-ithub/ro-diaspora.svg)](https://david-dm.org/gov-ithub/ro-diaspora)
+[![devDependency Status](https://david-dm.org/gov-ithub/ro-diaspora/dev-status.svg)](https://david-dm.org/gov-ithub/ro-diaspora?type=dev)
 [![Known Vulnerabilities](https://snyk.io/test/github/gov-ithub/ro-diaspora/8f3d6d079920b7f2e53362e4fb8595e8c28593c4/badge.svg)](https://snyk.io/test/github/gov-ithub/ro-diaspora/8f3d6d079920b7f2e53362e4fb8595e8c28593c4)
 
 
