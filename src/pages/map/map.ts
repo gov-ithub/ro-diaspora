@@ -176,9 +176,69 @@ export class PageMap {
     this.subscribePosition = this.positionService.getPosition()
       .subscribe(position => {
         this.userPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
-        this.userMarker.setOptions({ position: this.userPosition, visible: true })
+        this.userMarker.setOptions({ position: this.userPosition, visible: true });
+        this.setMapCenter(this.userPosition); 
       });
+  }
 
+  private setMapCenter(
+    latLng: google.maps.LatLngLiteral,
+  ) {
+    this.map.setCenter(latLng);
+    let closeMarkers = this.findClosestNMarkers(
+      3, 
+      latLng,
+    );
+
+    let bounds = new google.maps.LatLngBounds();
+    bounds.extend(new google.maps.LatLng(latLng.lat, latLng.lng));
+
+    closeMarkers.map(
+      (function(item, index) {
+       bounds.extend(new google.maps.LatLng(
+         this.markersService.getMarkers(item.id)[0].coords.lat,
+         this.markersService.getMarkers(item.id)[0].coords.lng,
+       ));
+      }).bind(this)
+    );
+
+    this.map.fitBounds(bounds);
+  }
+
+  private findClosestNMarkers(
+    n: number,
+    coords: google.maps.LatLngLiteral,
+  ) {
+    const R = 6371; // Earth radius
+    let distances = [];
+    const markerCount = this.markers.length;
+
+    function toRad(n: number) {
+      return n * Math.PI / 180;
+    }
+
+    for (let i = 0; i < markerCount; i++) {
+      let mlat = Number(this.markers[i].coords.lat);
+      let mlng = Number(this.markers[i].coords.lng);
+      let dLat = toRad(mlat - coords.lat);
+      let dLng = toRad(mlng - coords.lng);
+
+      let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(toRad(coords.lat)) * Math.cos(toRad(coords.lat)) *
+        Math.sin(dLng/2) * Math.sin(dLng/2);
+      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      var d = R * c;
+      distances[i] = {
+        "distance": d,
+        "id": this.markers[i].id, 
+      };
+    }
+
+    let sortedArr = distances.sort(function(a, b) {
+      return a.distance - b.distance;
+    });
+
+    return sortedArr.slice(0, n);
   }
 
   private setSearch() {
