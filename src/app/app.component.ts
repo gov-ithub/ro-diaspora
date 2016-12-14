@@ -5,7 +5,6 @@ import { Storage } from '@ionic/storage';
 
 import { PageWelcome } from '../pages/welcome/welcome';
 import { PageMap } from '../pages/map/map';
-import { PageFeedback } from '../pages/feedback/feedback';
 import { PageInfo } from '../pages/info/info';
 
 @Component({
@@ -26,7 +25,6 @@ export class MyApp {
 
     this.pages = [
       { title: 'Hartă', icon: 'map', component: PageMap },
-      { title: 'Opinia ta', icon: 'checkbox', component: PageFeedback },
       { title: 'Info Utile', icon: 'help-circle', component: PageInfo }
     ];
   }
