@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Platform, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { GoogleAnalytics } from 'ionic-native';
 
 import { PageMap } from '../map/map';
 
@@ -11,9 +12,12 @@ import { PageMap } from '../map/map';
 export class PageWelcome {
 
   constructor(
-    public navController: NavController,
+    private platform: Platform,
+    private navController: NavController,
     private storage: Storage
-  ) { }
+  ) {
+    this.platform.ready().then(() => GoogleAnalytics.trackView("welcome"));
+  }
 
   close() {
     this.navController.setRoot(PageMap).then(

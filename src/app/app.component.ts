@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen, Diagnostic, Dialogs } from 'ionic-native';
+import { StatusBar, Splashscreen, Diagnostic, Dialogs, GoogleAnalytics } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 
 import { PageWelcome } from '../pages/welcome/welcome';
@@ -19,7 +19,7 @@ export class MyApp {
   pages: Array<{title: string, icon: string, component: any}>;
 
   constructor(
-    public platform: Platform,
+    private platform: Platform,
     private storage: Storage
   ) {
     this.initializeApp();
@@ -54,12 +54,12 @@ export class MyApp {
             });
           }
         });
+
+      GoogleAnalytics.startTrackerWithId("UA-88745908-1");
     });
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 }

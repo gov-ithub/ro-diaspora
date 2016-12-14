@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Platform, NavController } from 'ionic-angular';
+import { GoogleAnalytics } from 'ionic-native';
 
 import { News } from '../../models/news';
 
@@ -18,9 +19,12 @@ export class PageNews {
   private subscribeNews: Subscription;
 
   constructor(
-    public navController: NavController,
+    private platform: Platform,
+    private navController: NavController,
     private newsService: NewsService
-  ) { }
+  ) {
+    this.platform.ready().then(() => GoogleAnalytics.trackView("news"));
+  }
 
   ionViewWillEnter() {
     this.setNews();

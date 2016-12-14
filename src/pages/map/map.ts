@@ -1,10 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { 
-  Platform, 
-  NavController, 
-  ModalController, 
-  ToastController 
+import {
+  Platform,
+  NavController,
+  ModalController,
+  ToastController
 } from 'ionic-angular';
+import { GoogleAnalytics } from 'ionic-native';
 
 import { Storage } from '@ionic/storage';
 
@@ -62,8 +63,10 @@ export class PageMap {
     private markersService: MarkersService,
     private positionService: PositionService,
     private toastController: ToastController,
-    private storage: Storage, 
-  ) { }
+    private storage: Storage
+  ) {
+    this.platform.ready().then(() => GoogleAnalytics.trackView("map"));
+  }
 
   ionViewWillEnter() {
     this.searchEl = document.getElementById("search");
@@ -87,7 +90,7 @@ export class PageMap {
       this.map.panTo(position);
       this.map.setZoom(16);
     }
-    
+
     this.resetLocationMarkers();
     this.searchInput.value = '';
   }
@@ -118,13 +121,13 @@ export class PageMap {
             dismissOnPageChange: true,
             cssClass: 'toast-gmaps',
           });
-          
+
           toast.onDidDismiss(() => {
             this.storage.set('pages-toast-dismissed', true);
           });
 
           toast.present();
-        } 
+        }
       });
     });
   }

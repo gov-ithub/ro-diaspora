@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams, Platform } from 'ionic-angular';
+import { GoogleAnalytics } from 'ionic-native';
 
 import { PageFAQ } from '../faq/faq';
 import { PageFeedback } from '../feedback/feedback';
@@ -34,6 +35,7 @@ export class PageMapView {
     private platform: Platform,
   ) {
     this.id = navParams.get('id');
+    this.platform.ready().then(() => GoogleAnalytics.trackView("map-view-" + this.id));
     this.isOverlay = this.viewController.isOverlay;
   }
 
@@ -53,7 +55,7 @@ export class PageMapView {
       );
     } else {
       window.open(
-        'http://maps.google.com/maps?daddr=' 
+        'http://maps.google.com/maps?daddr='
           + this.marker.coords.lat + ',' + this.marker.coords.lng + '&saddr=My+Location',
         '_blank'
       );

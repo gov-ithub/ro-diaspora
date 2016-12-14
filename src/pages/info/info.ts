@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Platform, NavController } from 'ionic-angular';
+import { GoogleAnalytics } from 'ionic-native';
 
 import { PageFAQ } from '../faq/faq';
 
@@ -10,5 +11,10 @@ import { PageFAQ } from '../faq/faq';
 export class PageInfo {
   FAQPage = PageFAQ;
 
-  constructor(public navCtrl: NavController) {}
+  constructor(
+    private navController: NavController,
+    private platform: Platform
+  ) {
+    this.platform.ready().then(() => GoogleAnalytics.trackView("info"));
+  }
 }
