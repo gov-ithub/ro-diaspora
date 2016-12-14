@@ -87,9 +87,7 @@ $ionicons-font-path: "../assets/fonts";
 .ion-md-hublogo:before {
   @extend .ion;
   background-image: url(../assets/icon/govithub.png);
-  background-size: 360px 103px;
+  background-size: contain;
   display: inline-block;
-  width: 360px;
-  height: 103px;
   content: "";
 }
