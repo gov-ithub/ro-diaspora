@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Slides, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { GoogleAnalytics } from 'ionic-native';
 
 import { SocialSharing } from 'ionic-native';
 
@@ -10,10 +11,10 @@ const DefaultButtons = [
     value: 1,
     color: "dark",
   },
-  { 
+  {
    label: "DA",
    value: 2,
-   color: "light", 
+   color: "light",
   },
 ];
 
@@ -34,34 +35,36 @@ export class PageFeedback {
   };
 
   slides = [];
-  
+
   private allSlides = [
     {
-      content: 'Ai găsit ușor secția de vot selectată?', 
-      id: 1, 
+      content: 'Ai găsit ușor secția de vot selectată?',
+      id: 1,
       buttons: DefaultButtons,
       status: { active: true },
     },
     {
-      content: 'Secția de vot era poziționată corect pe hartă?', 
-      id: 2, 
+      content: 'Secția de vot era poziționată corect pe hartă?',
+      id: 2,
       buttons: DefaultButtons,
       status: { active: true },
     },
     {
-      content: 'Era aglomerat sau nu la secția de vot?', 
+      content: 'Era aglomerat sau nu la secția de vot?',
       id: 3,
       buttons: DefaultButtons,
       status: { active: true },
     },
   ];
-  
-  private unregisterBackButtonOverride; 
+
+  private unregisterBackButtonOverride;
 
   constructor(
     private storage: Storage,
     private platform: Platform,
-  ) {}
+  ) {
+    this.platform.ready().then(() => GoogleAnalytics.trackView("feedback"));
+  }
 
   ionViewDidLoad() {
     this.storage.keys().then(data => {
@@ -96,7 +99,7 @@ export class PageFeedback {
     this.unregisterBackButtonOverride = this.platform.registerBackButtonAction(
       () => { this.slider.slidePrev(); },
       101,
-    );   
+    );
   }
 
   nextSlide() {
@@ -119,15 +122,15 @@ export class PageFeedback {
     this.storage.set(
       this.getQuestionKey(id),
       answer
-    );    
+    );
   }
 
   whatsappShare() {
     SocialSharing.shareViaWhatsApp(
       "Unde votezi dacă ești român și locuiești în străinătate? Găsește cea mai apropiată secție de vot cu ROdiaspora - aplicația românului de pretutindeni!",
-      "http://ithub.gov.ro/wp-content/uploads/2016/12/8a4314ac88ce12b296a747f869b651b7-1.jpg", 
-      "http://ithub.gov.ro/2016/12/11/rodiaspora/", 
-    ).then(() => { 
+      "http://ithub.gov.ro/wp-content/uploads/2016/12/8a4314ac88ce12b296a747f869b651b7-1.jpg",
+      "http://ithub.gov.ro/2016/12/11/rodiaspora/",
+    ).then(() => {
       console.log('success');
     }, () => {
       console.log('fail');
@@ -138,8 +141,8 @@ export class PageFeedback {
     SocialSharing.shareViaFacebook(
       "Unde votezi dacă ești român și locuiești în străinătate? Găsește cea mai apropiată secție de vot cu ROdiaspora - aplicația românului de pretutindeni!",
       null,
-      "http://ithub.gov.ro/2016/12/09/rodiaspora/", 
-    ).then(() => { 
+      "http://ithub.gov.ro/2016/12/09/rodiaspora/",
+    ).then(() => {
       console.log('success');
     }, () => {
       console.log('fail');
@@ -149,9 +152,9 @@ export class PageFeedback {
   twitterShare() {
     SocialSharing.shareViaTwitter(
       "Unde votezi dacă ești român și locuiești în străinătate? Găsește cea mai apropiată secție de vot cu ROdiaspora - aplicația românului de pretutindeni!",
-      "http://ithub.gov.ro/wp-content/uploads/2016/12/8a4314ac88ce12b296a747f869b651b7    -1.jpg", 
-      "http://ithub.gov.ro/2016/12/11/rodiaspora/", 
-    ).then(() => { 
+      "http://ithub.gov.ro/wp-content/uploads/2016/12/8a4314ac88ce12b296a747f869b651b7    -1.jpg",
+      "http://ithub.gov.ro/2016/12/11/rodiaspora/",
+    ).then(() => {
       console.log('success');
     }, () => {
       console.log('fail');

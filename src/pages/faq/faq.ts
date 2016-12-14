@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Platform } from 'ionic-angular';
+import { GoogleAnalytics } from 'ionic-native';
+
 import { FAQItems } from './faq-items';
 
 interface FAQItem {
@@ -16,7 +19,9 @@ export class PageFAQ {
   FAQItems: Array<FAQItem> = [];
 
   constructor(
+    private platform: Platform
   ) {
+    this.platform.ready().then(() => GoogleAnalytics.trackView("faq"));
     this.FAQItems = FAQItems.map(function(item, index) {
       return {
         title: item.title,
