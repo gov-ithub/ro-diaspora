@@ -7,7 +7,6 @@ import { MyApp } from './app.component';
 import { PageWelcome } from '../pages/welcome/welcome';
 import { PageMap } from '../pages/map/map';
 import { PageMapView } from '../pages/map-view/map-view';
-import { PageFAQ } from '../pages/faq/faq';
 import { PageFeedback } from '../pages/feedback/feedback';
 import { PageInfo } from '../pages/info/info';
 
@@ -22,7 +21,6 @@ import { LinkyModule } from 'angular2-linky';
     PageWelcome,
     PageMap,
     PageMapView,
-    PageFAQ,
     PageFeedback,
     PageInfo,
   ],
@@ -36,7 +34,6 @@ import { LinkyModule } from 'angular2-linky';
     PageWelcome,
     PageMap,
     PageMapView,
-    PageFAQ,
     PageFeedback,
     PageInfo,
   ],
