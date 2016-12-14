@@ -7,8 +7,8 @@
 ```
 $> npm install -g ionic cordova
 
-$> git clone https://github.com/gov-ithub/romanescu-app.git
-$> cd romanescu-app
+$> git clone https://github.com/gov-ithub/ro-diaspora.git
+$> cd ro-diaspora
 $> npm cache clean
 $> npm install
 $> ionic serve
