@@ -48,7 +48,8 @@
     "cordova-plugin-x-socialsharing",
     "cordova-plugin-directions",
     "cordova-plugin-dialogs",
-    "cordova.plugins.diagnostic"
+    "cordova.plugins.diagnostic",
+    "cordova-plugin-google-analytics"
   ],
   "cordovaPlatforms": [
     {

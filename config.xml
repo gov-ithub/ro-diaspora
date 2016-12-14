@@ -11,6 +11,7 @@
   <allow-intent href="sms:*"/>
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
+  <allow-navigation href="*"/>
   <platform name="android">
     <allow-intent href="market:*"/>
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
@@ -92,6 +93,7 @@
   <plugin name="cordova-sqlite-storage" spec="~2.0.0"/>
   <plugin name="cordova-plugin-compat" spec="~1.1.0"/>
   <plugin name="cordova-plugin-geolocation" spec="~2.4.0"/>
+  <plugin name="cordova-plugin-google-analytics" spec="~1.6.0"/>
   <plugin name="cordova-plugin-crosswalk-webview" spec="~2.2.0">
     <variable name="XWALK_MODE" value="lite"/>
     <variable name="XWALK_VERSION" value="22+"/>
@@ -100,5 +102,4 @@
     <variable name="XWALK_MULTIPLEAPK" value="true"/>
   </plugin>
   <icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
-  <allow-navigation href="http://192.168.0.80:8000"/>
 </widget>
