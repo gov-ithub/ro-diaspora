@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ViewController, NavParams, Platform } from 'ionic-angular';
 import { GoogleAnalytics } from 'ionic-native';
 
-import { PageFAQ } from '../faq/faq';
 import { PageFeedback } from '../feedback/feedback';
 
 import { MarkerVotingStation } from '../../models/marker-voting-station';
@@ -15,7 +14,6 @@ declare var directions: any;
   templateUrl: 'map-view.html'
 })
 export class PageMapView {
-  FAQPage = PageFAQ;
   FeedbackPage = PageFeedback;
 
   sliderOptions = {
