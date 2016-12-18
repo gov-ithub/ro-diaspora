@@ -10,8 +10,17 @@
 </ion-header>
 
 <ion-content scroll="false">
+  <ion-fab right top #fab> 
+    <button ion-fab mini><ion-icon name="pin"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab *ngFor="let category of markerCategories" (click)="switchView(category.id, fab)">
+        <ion-icon name="arrow-back"></ion-icon>
+        <div class="label">{{ category.name }}</div>
+      </button>  
+    </ion-fab-list>
+  </ion-fab>
   <ion-fab *ngIf="userPosition" right bottom>
-    <button ion-fab (click)="locate()"><ion-icon name="locate"></ion-icon></button>
+    <button ion-fab (click)="locate()" mini><ion-icon name="locate"></ion-icon></button>
   </ion-fab>
 
   <div #gmap id="gmap"></div>

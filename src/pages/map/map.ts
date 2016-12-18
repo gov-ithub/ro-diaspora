@@ -3,7 +3,8 @@ import {
   Platform,
   NavController,
   ModalController,
-  ToastController
+  ToastController,
+  FabContainer,
 } from 'ionic-angular';
 import { GoogleAnalytics } from 'ionic-native';
 
@@ -14,6 +15,9 @@ import { PageMapView } from '../../pages/map-view/map-view';
 import { MarkerVotingStation } from '../../models/marker-voting-station';
 import { MarkersService } from '../../providers/markers';
 import { PositionService } from '../../providers/position';
+
+import { MarkerCategoryID } from '../../models/marker-category-id';
+import { VotingStationCategory } from '../../models/voting-station-category';
 
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
@@ -27,12 +31,16 @@ const latLngEurope: google.maps.LatLngLiteral = {lat: 49.1569609, lng: 13.898136
 export class PageMap {
   @ViewChild("gmap") mapElement: ElementRef;
 
-  userPosition: google.maps.LatLngLiteral;
+  userPosition: google.maps.LatLngLiteral = latLngEurope;
+  markerCategories: VotingStationCategory[];
 
   private map: google.maps.Map;
   private userMarker: google.maps.Marker;
   private locationMarkers: google.maps.Marker[] = [];
   private markers: MarkerVotingStation[];
+  private markersRef: google.maps.Marker[] = [];
+  private clusterer?: MarkerClusterer = null;
+  private hasLocation: boolean = false;
   private searchBox: google.maps.places.SearchBox;
   private searchEl: HTMLElement;
   private searchInput: HTMLInputElement;
@@ -73,10 +81,13 @@ export class PageMap {
     this.searchInput = this.searchEl.getElementsByTagName('input')[0];
     this.setMap();
     this.presentToast();
+    this.markerCategories = this.markersService.getMarkerCategories().filter(
+      category => category.id != MarkerCategoryID.SectiiVot
+    );
   }
 
   ionViewDidEnter() {
-    this.setMarkers();
+    this.setMarkers(this.markersService.getMarkers());
     this.setUserMarker();
     this.setSearch();
   }
@@ -86,20 +97,20 @@ export class PageMap {
   }
 
   locate(position: any = this.userPosition) {
-    if ( position ) {
-      this.map.panTo(position);
-      this.map.setZoom(16);
-    }
-
+    this.setMapCenter(position); 
     this.resetLocationMarkers();
     this.searchInput.value = '';
   }
 
   resetSearch() {
-    this.map.panTo(latLngEurope);
-    this.map.setZoom(4);
+    this.locate();
     this.searchInput.value = '';
     this.resetLocationMarkers();
+  }
+
+  switchView(cat: MarkerCategoryID, fab: FabContainer) {
+    this.setMarkers(this.markersService.getMarkersByCategoryID(cat));
+    fab.close();
   }
 
   private resetLocationMarkers() {
@@ -149,9 +160,14 @@ export class PageMap {
     this.userMarker = new google.maps.Marker({ map: this.map, position: null, icon: this.markerIconUser });
   }
 
-  private setMarkers() {
+  private setMarkers(markerList: MarkerVotingStation[]) {
     // get & set markers
-    this.markers = this.markersService.getMarkers()
+    if (this.markers) {
+      this.markers = [];
+      this.markersRef.map(marker => marker.setMap(null));
+    }
+    this.markers = markerList;
+
     let markers = this.markers.map(marker => {
       let options = {
         map: this.map,
@@ -162,22 +178,34 @@ export class PageMap {
         icon: this.markerIconVotingStation
       };
       let output = new google.maps.Marker(options)
+      this.markersRef.push(output);
       output.addListener('click', () => {
         if ( this.platform.is('mobile') ) this.navController.push(PageMapView, { id: marker.id });
         else this.modalController.create(PageMapView, { id: marker.id }).present();
       });
       return output;
     });
+   
+    if (this.clusterer) {
+      this.clusterer.clearMarkers();
+    }
 
-    new MarkerClusterer(this.map, markers,
-      { imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m' }
-    );
+    if (markers.length > 100) {
+      this.clusterer = new MarkerClusterer(this.map, markers,
+        { imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m' }
+      );
+    }
+
+    if (this.hasLocation) {
+      this.locate();   
+    }
   }
 
   private setUserMarker() {
     // get user location and update user marker
     this.subscribePosition = this.positionService.getPosition()
       .subscribe(position => {
+        this.hasLocation = true;
         this.userPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
         this.userMarker.setOptions({ position: this.userPosition, visible: true });
         this.setMapCenter(this.userPosition); 
