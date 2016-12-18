@@ -73,7 +73,7 @@ export class PageMap {
     private toastController: ToastController,
     private storage: Storage
   ) {
-    this.platform.ready().then(() => GoogleAnalytics.trackView("map"));
+    this.platform.ready().then(() => GoogleAnalytics.trackView("map").catch(error => error));
   }
 
   ionViewWillEnter() {
@@ -97,7 +97,7 @@ export class PageMap {
   }
 
   locate(position: any = this.userPosition) {
-    this.setMapCenter(position); 
+    this.setMapCenter(position);
     this.resetLocationMarkers();
     this.searchInput.value = '';
   }
@@ -121,25 +121,23 @@ export class PageMap {
   }
 
   private presentToast() {
-    this.platform.ready().then(() => {
-      this.storage.keys().then((data) => {
-        if (data.indexOf('pages-toast-dismissed') == -1) {
-          let toast = this.toastController.create({
-            message: 'Apasă un punct de pe hartă pentru detalii',
-            position: 'bottom',
-            showCloseButton: true,
-            closeButtonText: 'Închide',
-            dismissOnPageChange: true,
-            cssClass: 'toast-gmaps',
-          });
+    this.storage.keys().then((data) => {
+      if (data.indexOf('pages-toast-dismissed') == -1) {
+        let toast = this.toastController.create({
+          message: 'Apasă un punct de pe hartă pentru detalii',
+          position: 'bottom',
+          showCloseButton: true,
+          closeButtonText: 'Închide',
+          dismissOnPageChange: true,
+          cssClass: 'toast-gmaps',
+        });
 
-          toast.onDidDismiss(() => {
-            this.storage.set('pages-toast-dismissed', true);
-          });
+        toast.onDidDismiss(() => {
+          this.storage.set('pages-toast-dismissed', true);
+        });
 
-          toast.present();
-        }
-      });
+        toast.present();
+      }
     });
   }
 
@@ -185,7 +183,7 @@ export class PageMap {
       });
       return output;
     });
-   
+
     if (this.clusterer) {
       this.clusterer.clearMarkers();
     }
@@ -197,7 +195,7 @@ export class PageMap {
     }
 
     if (this.hasLocation) {
-      this.locate();   
+      this.locate();
     }
   }
 
@@ -208,7 +206,7 @@ export class PageMap {
         this.hasLocation = true;
         this.userPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
         this.userMarker.setOptions({ position: this.userPosition, visible: true });
-        this.setMapCenter(this.userPosition); 
+        this.setMapCenter(this.userPosition);
       });
   }
 
@@ -217,7 +215,7 @@ export class PageMap {
   ) {
     this.map.setCenter(latLng);
     let closeMarkers = this.findClosestNMarkers(
-      3, 
+      3,
       latLng,
     );
 
@@ -261,7 +259,7 @@ export class PageMap {
       var d = R * c;
       distances[i] = {
         "distance": d,
-        "id": this.markers[i].id, 
+        "id": this.markers[i].id,
       };
     }
 

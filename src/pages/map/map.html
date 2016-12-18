@@ -10,13 +10,13 @@
 </ion-header>
 
 <ion-content scroll="false">
-  <ion-fab right top #fab> 
+  <ion-fab right top #fab>
     <button ion-fab mini><ion-icon name="pin"></ion-icon></button>
     <ion-fab-list side="top">
       <button ion-fab *ngFor="let category of markerCategories" (click)="switchView(category.id, fab)">
         <ion-icon name="arrow-back"></ion-icon>
         <div class="label">{{ category.name }}</div>
-      </button>  
+      </button>
     </ion-fab-list>
   </ion-fab>
   <ion-fab *ngIf="userPosition" right bottom>

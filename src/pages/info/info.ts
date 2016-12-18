@@ -12,7 +12,7 @@ export class PageInfo {
     private navController: NavController,
     private platform: Platform
   ) {
-    this.platform.ready().then(() => GoogleAnalytics.trackView("info"));
+    this.platform.ready().then(() => GoogleAnalytics.trackView("info").catch(error => error));
   }
 
 }
