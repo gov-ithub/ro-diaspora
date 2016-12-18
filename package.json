@@ -1,39 +1,44 @@
 {
-  "name": "romanescu-app",
+  "name": "ro-diaspora",
+  "version": "0.1.2",
+  "description": "ROdiaspora: Aplicatia romanului de pretutindeni",
   "author": "GovITHub",
   "contributors": [
     "Catalin Zalog (http://zalog.ro/)",
     "Claudiu Ceia"
   ],
-  "homepage": "http://ionicframework.com/",
+  "license": "Apache-2.0",
   "private": true,
+  "homepage": "https://github.com/gov-ithub/ro-diaspora/#readme",
+  "bugs": {
+    "url": "https://github.com/gov-ithub/ro-diaspora/issues"
+  },
   "scripts": {
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve"
   },
   "dependencies": {
-    "@angular/common": "2.1.1",
-    "@angular/compiler": "2.1.1",
-    "@angular/compiler-cli": "2.1.1",
-    "@angular/core": "2.1.1",
-    "@angular/forms": "2.1.1",
-    "@angular/http": "2.1.1",
-    "@angular/platform-browser": "2.1.1",
-    "@angular/platform-browser-dynamic": "2.1.1",
-    "@angular/platform-server": "2.1.1",
-    "@ionic/storage": "^1.1.6",
+    "@angular/common": "2.2.1",
+    "@angular/compiler": "2.2.1",
+    "@angular/compiler-cli": "2.2.1",
+    "@angular/core": "2.2.1",
+    "@angular/forms": "2.2.1",
+    "@angular/http": "2.2.1",
+    "@angular/platform-browser": "2.2.1",
+    "@angular/platform-browser-dynamic": "2.2.1",
+    "@angular/platform-server": "2.2.1",
+    "@ionic/storage": "1.1.6",
     "@types/google-maps": "^3.1.28",
     "@types/markerclustererplus": "^2.1.28",
-    "angular2-linky": "^1.2.2",
-    "ionic-angular": "2.0.0-rc.3",
-    "ionic-native": "2.2.3",
+    "ionic-angular": "2.0.0-rc.4",
+    "ionic-native": "2.2.11",
     "ionicons": "3.0.0",
     "rxjs": "5.0.0-beta.12",
     "zone.js": "0.6.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "0.0.45",
-    "typescript": "2.0.6"
+    "@ionic/app-scripts": "0.0.47",
+    "typescript": "2.0.9"
   },
   "cordovaPlugins": [
     "cordova-plugin-whitelist",
@@ -57,12 +62,5 @@
       "version": "",
       "locator": "android"
     }
-  ],
-  "description": "ROdiaspora: Aplicatia romanului de pretutindeni",
-  "license": "Apache-2.0",
-  "version": "0.1.2",
-  "homepage": "https://github.com/gov-ithub/ro-diaspora/#readme",
-  "bugs": {
-    "url": "https://github.com/gov-ithub/ro-diaspora/issues"
-  }
+  ]
 }
