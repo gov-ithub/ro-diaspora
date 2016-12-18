@@ -13,8 +13,6 @@ import { PageInfo } from '../pages/info/info';
 import { PositionService } from '../providers/position';
 import { MarkersService } from '../providers/markers';
 
-import { LinkyModule } from 'angular2-linky';
-
 @NgModule({
   declarations: [
     MyApp,
@@ -25,8 +23,7 @@ import { LinkyModule } from 'angular2-linky';
     PageInfo,
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
-    LinkyModule,
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
