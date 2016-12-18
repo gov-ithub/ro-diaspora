@@ -58,5 +58,11 @@
       "locator": "android"
     }
   ],
-  "description": "romanescu-app: An Ionic project"
+  "description": "ROdiaspora: Aplicatia romanului de pretutindeni",
+  "license": "Apache-2.0",
+  "version": "0.1.2",
+  "homepage": "https://github.com/gov-ithub/ro-diaspora/#readme",
+  "bugs": {
+    "url": "https://github.com/gov-ithub/ro-diaspora/issues"
+  }
 }
