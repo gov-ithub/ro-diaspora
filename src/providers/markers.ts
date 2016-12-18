@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { MarkerVotingStation } from '../models/marker-voting-station';
 import { VotingStationsData } from './markers-data';
 
+import { MarkerCategoryID } from '../models/marker-category-id';
+import { VotingStationCategory } from '../models/voting-station-category';
+
 @Injectable()
 export class MarkersService {
   getMarkers(id?: string): MarkerVotingStation[] {
