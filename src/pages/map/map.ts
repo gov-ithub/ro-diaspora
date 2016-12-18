@@ -132,10 +132,6 @@ export class PageMap {
           cssClass: 'toast-gmaps',
         });
 
-        toast.onWillDismiss(() => {
-          // catch error: https://github.com/driftyco/ionic/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20dismissOnPageChange
-          toast.dismiss().catch(error => error);
-        });
         toast.onDidDismiss(() => {
           this.storage.set('pages-toast-dismissed', true);
         });
