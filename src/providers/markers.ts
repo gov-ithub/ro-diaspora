@@ -10,7 +10,7 @@ import { VotingStationCategory } from '../models/voting-station-category';
 export class MarkersService {
   getMarkers(id?: string): MarkerVotingStation[] {
     let output: MarkerVotingStation[] = VotingStationsData.filter(
-      res => res.category.id !== MarkerCategoryID.SectiiVot  
+      res => res.category.id !== MarkerCategoryID.SectiiVot
     );
 
     if (id) {

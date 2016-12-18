@@ -1,53 +1,53 @@
 page-map {
-  [right][bottom] { 
-    right: 25px; 
-    bottom: 25px; 
+  [right][bottom] {
+    right: 25px;
+    bottom: 25px;
   }
-  [top][right] { 
-    top: calc(100% - 140px); 
-    right: 25px; 
-  }
-
-  .scroll-content { 
-    overflow-y: hidden; 
+  [top][right] {
+    top: calc(100% - 140px);
+    right: 25px;
   }
 
-  #gmap { 
-    height: 100%; 
+  .scroll-content {
+    overflow-y: hidden;
+  }
+
+  #gmap {
+    height: 100%;
   }
 
   #search {
-    display: flex; 
-    width: 98%; 
-    margin: 5px 1%; 
-    border-radius: 2px; 
+    display: flex;
+    width: 98%;
+    margin: 5px 1%;
+    border-radius: 2px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 
-    > * { 
-      flex: 1 1 0; background-color: #fff; 
+    > * {
+      flex: 1 1 0; background-color: #fff;
     }
 
-    input { 
-      flex-basis: 100%; 
-      width: 100%; 
-      padding: 10px; 
-      font-size: 16px; 
-      border: 0; 
+    input {
+      flex-basis: 100%;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 0;
     }
-    button { 
-      padding-left: 15px; 
-      padding-right: 15px; 
+    button {
+      padding-left: 15px;
+      padding-right: 15px;
     }
   }
 
-  #type-selector { 
-    padding: 15px 10px; 
-    background-color: #4d90fe; 
-    color: #fff; 
+  #type-selector {
+    padding: 15px 10px;
+    background-color: #4d90fe;
+    color: #fff;
   }
 
-  #type-selector label { 
-    font-size: 13px; 
+  #type-selector label {
+    font-size: 13px;
   }
 
   ion-fab {
