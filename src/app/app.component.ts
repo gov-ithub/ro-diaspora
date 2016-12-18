@@ -51,7 +51,8 @@ export class MyApp {
               if ( button == 1 ) Diagnostic.switchToLocationSettings();
             });
           }
-        });
+        })
+        .catch(error => error);
 
       GoogleAnalytics.startTrackerWithId("UA-88745908-1");
     });

@@ -16,7 +16,7 @@ export class PageWelcome {
     private navController: NavController,
     private storage: Storage
   ) {
-    this.platform.ready().then(() => GoogleAnalytics.trackView("welcome"));
+    this.platform.ready().then(() => GoogleAnalytics.trackView("welcome").catch(error => error));
   }
 
   close() {

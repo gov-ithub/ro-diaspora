@@ -63,7 +63,7 @@ export class PageFeedback {
     private storage: Storage,
     private platform: Platform,
   ) {
-    this.platform.ready().then(() => GoogleAnalytics.trackView("feedback"));
+    this.platform.ready().then(() => GoogleAnalytics.trackView("feedback").catch(error => error));
   }
 
   ionViewDidLoad() {

@@ -33,7 +33,7 @@ export class PageMapView {
     private platform: Platform,
   ) {
     this.id = navParams.get('id');
-    this.platform.ready().then(() => GoogleAnalytics.trackView("map-view-" + this.id));
+    this.platform.ready().then(() => GoogleAnalytics.trackView("map-view-" + this.id).catch(error => error));
     this.isOverlay = this.viewController.isOverlay;
   }
 
