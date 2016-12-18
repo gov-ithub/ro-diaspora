@@ -12,12 +12,8 @@ import { Storage } from '@ionic/storage';
 
 import { PageMapView } from '../../pages/map-view/map-view';
 
-import { MarkerVotingStation } from '../../models/marker-voting-station';
 import { MarkersService } from '../../providers/markers';
 import { PositionService } from '../../providers/position';
-
-import { MarkerCategoryID } from '../../models/marker-category-id';
-import { VotingStationCategory } from '../../models/voting-station-category';
 
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
@@ -32,36 +28,40 @@ export class PageMap {
   @ViewChild("gmap") mapElement: ElementRef;
 
   userPosition: google.maps.LatLngLiteral = latLngEurope;
-  markerCategories: VotingStationCategory[];
+  markerCategories: string[];
 
   private map: google.maps.Map;
   private userMarker: google.maps.Marker;
   private locationMarkers: google.maps.Marker[] = [];
-  private markers: MarkerVotingStation[];
+  private markers;
   private markersRef: google.maps.Marker[] = [];
   private clusterer?: MarkerClusterer = null;
   private hasLocation: boolean = false;
   private searchBox: google.maps.places.SearchBox;
   private searchEl: HTMLElement;
   private searchInput: HTMLInputElement;
+
   private markerIconUser: google.maps.Icon = {
     url: 'assets/icon/marker-user.png',
     size: new google.maps.Size(80, 80),
     anchor: new google.maps.Point(0, 30),
     scaledSize: new google.maps.Size(30, 30)
   };
+
   private markerIconVotingStation: google.maps.Icon = {
     url: 'assets/icon/marker-voting-station.png',
     size: new google.maps.Size(80, 101),
     anchor: new google.maps.Point(0, 38),
     scaledSize: new google.maps.Size(30, 38)
   };
+
   private markerIconLocation: google.maps.Icon = {
     url: 'assets/icon/marker-location.png',
     size: new google.maps.Size(82, 103),
     anchor: new google.maps.Point(0, 41),
     scaledSize: new google.maps.Size(30, 38)
   };
+
   private subscribePosition: Subscription;
 
   constructor(
@@ -73,21 +73,29 @@ export class PageMap {
     private toastController: ToastController,
     private storage: Storage
   ) {
-    this.platform.ready().then(() => GoogleAnalytics.trackView("map").catch(error => error));
+    this.platform.ready().then(
+      () => GoogleAnalytics.trackView("map").catch(error => error)
+    );
   }
 
   ionViewWillEnter() {
     this.searchEl = document.getElementById("search");
     this.searchInput = this.searchEl.getElementsByTagName('input')[0];
+
     this.setMap();
     this.presentToast();
-    this.markerCategories = this.markersService.getMarkerCategories().filter(
-      category => category.id != MarkerCategoryID.SectiiVot
+    this.markersService.getMarkerCategories().then(
+      (categories) => {
+        this.markerCategories = categories;
+      }
     );
   }
 
   ionViewDidEnter() {
-    this.setMarkers(this.markersService.getMarkers());
+    // WHY THIS EMPTY YO
+    this.markersService.getMarkers().then(
+      (markers) => this.setMarkers(markers)
+    );
     this.setUserMarker();
     this.setSearch();
   }
@@ -108,8 +116,10 @@ export class PageMap {
     this.resetLocationMarkers();
   }
 
-  switchView(cat: MarkerCategoryID, fab: FabContainer) {
-    this.setMarkers(this.markersService.getMarkersByCategoryID(cat));
+  switchView(cat, fab: FabContainer) {
+    this.markersService.getMarkersByCategoryID(cat).then(
+      (markers) => this.setMarkers(markers)
+    );
     fab.close();
   }
 
@@ -142,7 +152,6 @@ export class PageMap {
   }
 
   private setMap() {
-    // set map
     let mapOptions = {
       center: latLngEurope,
       disableDefaultUI: true,
@@ -152,37 +161,46 @@ export class PageMap {
       zoom: 4
     };
 
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.map = new google.maps.Map(
+      this.mapElement.nativeElement,
+      mapOptions
+    );
 
-    // set user marker
-    this.userMarker = new google.maps.Marker({ map: this.map, position: null, icon: this.markerIconUser });
+    this.userMarker = new google.maps.Marker({
+      map: this.map,
+      position: null,
+      icon: this.markerIconUser
+    });
   }
 
-  private setMarkers(markerList: MarkerVotingStation[]) {
-    // get & set markers
+  private setMarkers(markerList) {
+    // if previously set markers, clear them
     if (this.markers) {
-      this.markers = [];
+      console.log('this markers');
       this.markersRef.map(marker => marker.setMap(null));
     }
     this.markers = markerList;
+    console.log('new this markers');
 
     let markers = this.markers.map(marker => {
+      console.log('new this markers mapping');
       let options = {
         map: this.map,
         position: {
-          lat: Number(marker.coords.lat),
-          lng: Number(marker.coords.lng),
+          lat: Number(marker.get("coords").latitude),
+          lng: Number(marker.get("coords").longitude),
         },
         icon: this.markerIconVotingStation
       };
       let output = new google.maps.Marker(options)
       this.markersRef.push(output);
       output.addListener('click', () => {
-        if ( this.platform.is('mobile') ) this.navController.push(PageMapView, { id: marker.id });
+        if ( this.platform.is('mobile') ) this.navController.push(PageMapView, { id: marker.get("id") });
         else this.modalController.create(PageMapView, { id: marker.id }).present();
       });
       return output;
     });
+    console.log('done mapping');
 
     if (this.clusterer) {
       this.clusterer.clearMarkers();
@@ -200,7 +218,6 @@ export class PageMap {
   }
 
   private setUserMarker() {
-    // get user location and update user marker
     this.subscribePosition = this.positionService.getPosition()
       .subscribe(position => {
         this.hasLocation = true;
@@ -213,25 +230,27 @@ export class PageMap {
   private setMapCenter(
     latLng: google.maps.LatLngLiteral,
   ) {
+
     this.map.setCenter(latLng);
-    let closeMarkers = this.findClosestNMarkers(
-      3,
-      latLng,
-    );
+    this.findClosestNMarkers(3, latLng).then(function(closeMarkers) {
+      let bounds = new google.maps.LatLngBounds();
+      bounds.extend(new google.maps.LatLng(latLng.lat, latLng.lng));
 
-    let bounds = new google.maps.LatLngBounds();
-    bounds.extend(new google.maps.LatLng(latLng.lat, latLng.lng));
+      closeMarkers.map(
+        (function(item, index) {
+          this.markersService.getMarkerByID(item.id).then(
+            (marker) => {
+              bounds.extend(new google.maps.LatLng(
+                marker.get("coords").latitude,
+                marker.get("coords").longitude,
+              ));
+            }
+          );
+        }).bind(this)
+      );
 
-    closeMarkers.map(
-      (function(item, index) {
-       bounds.extend(new google.maps.LatLng(
-         this.markersService.getMarkers(item.id)[0].coords.lat,
-         this.markersService.getMarkers(item.id)[0].coords.lng,
-       ));
-      }).bind(this)
-    );
-
-    this.map.fitBounds(bounds);
+      this.map.fitBounds(bounds);
+    });
   }
 
   private findClosestNMarkers(
@@ -240,34 +259,36 @@ export class PageMap {
   ) {
     const R = 6371; // Earth radius
     let distances = [];
-    const markerCount = this.markers.length;
+    return this.markersService.getMarkers().then((markers) => {
+      const markerCount = markers.length;
 
-    function toRad(n: number) {
-      return n * Math.PI / 180;
-    }
+      function toRad(n: number) {
+        return n * Math.PI / 180;
+      }
 
-    for (let i = 0; i < markerCount; i++) {
-      let mlat = Number(this.markers[i].coords.lat);
-      let mlng = Number(this.markers[i].coords.lng);
-      let dLat = toRad(mlat - coords.lat);
-      let dLng = toRad(mlng - coords.lng);
+      for (let i = 0; i < markerCount; i++) {
+        let mlat = Number(markers[i].get("coords").latitude);
+        let mlng = Number(markers[i].get("coords").longitude);
+        let dLat = toRad(mlat - coords.lat);
+        let dLng = toRad(mlng - coords.lng);
 
-      let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(toRad(coords.lat)) * Math.cos(toRad(coords.lat)) *
-        Math.sin(dLng/2) * Math.sin(dLng/2);
-      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      var d = R * c;
-      distances[i] = {
-        "distance": d,
-        "id": this.markers[i].id,
-      };
-    }
+        let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(toRad(coords.lat)) * Math.cos(toRad(coords.lat)) *
+          Math.sin(dLng/2) * Math.sin(dLng/2);
+        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        var d = R * c;
+        distances[i] = {
+          "distance": d,
+          "id": markers[i].get("id"),
+        };
+      }
 
-    let sortedArr = distances.sort(function(a, b) {
-      return a.distance - b.distance;
+      let sortedArr = distances.sort(function(a, b) {
+        return a.distance - b.distance;
+      });
+
+      return sortedArr.slice(0, n);
     });
-
-    return sortedArr.slice(0, n);
   }
 
   private setSearch() {
@@ -302,7 +323,9 @@ export class PageMap {
 
   private unsubscribe() {
     // do not unsubscribe if ionViewDidLeave in a children page
-    if ( this.navController.getActive(true).name == 'PageMapView' ) return;
+    if ( this.navController.getActive(true).name == 'PageMapView' ) {
+      return;
+    }
 
     this.subscribePosition.unsubscribe();
   }

@@ -13,9 +13,9 @@
   <ion-fab right top #fab>
     <button ion-fab mini><ion-icon name="pin"></ion-icon></button>
     <ion-fab-list side="top">
-      <button ion-fab *ngFor="let category of markerCategories" (click)="switchView(category.id, fab)">
+      <button ion-fab *ngFor="let category of markerCategories" (click)="switchView(category, fab)">
         <ion-icon name="arrow-back"></ion-icon>
-        <div class="label">{{ category.name }}</div>
+        <div class="label">{{ category }}</div>
       </button>
     </ion-fab-list>
   </ion-fab>

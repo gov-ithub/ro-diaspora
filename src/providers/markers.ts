@@ -1,45 +1,72 @@
 import { Injectable } from '@angular/core';
 
-import { MarkerVotingStation } from '../models/marker-voting-station';
-import { VotingStationsData } from './markers-data';
+import { Parse } from 'parse';
+import { Config } from '../app/config/config';
 
-import { MarkerCategoryID } from '../models/marker-category-id';
-import { VotingStationCategory } from '../models/voting-station-category';
+import { ErrorUtils } from '../error/errorutils';
 
 @Injectable()
 export class MarkersService {
-  getMarkers(id?: string): MarkerVotingStation[] {
-    let output: MarkerVotingStation[] = VotingStationsData.filter(
-      res => res.category.id !== MarkerCategoryID.SectiiVot
-    );
+  private markerObject;
+  private query;
 
-    if (id) {
-      output = output.filter(res => res.id === id);
-    }
-    return this.renameMarkers(output);
+  constructor() {
+    this.markerObject = Parse.Object.extend("MarkerObject");
+    this.query = new Parse.Query(this.markerObject);
+
+    Parse.initialize(Config.APP_ID);
+    Parse.serverURL = Config.SERVER_URL;
   }
 
-  getMarkersByCategoryID(categoryID: MarkerCategoryID): MarkerVotingStation[] {
-    return this.renameMarkers(
-      VotingStationsData.filter(res => res.category.id === categoryID)
-    );
-  }
-
-  getMarkerCategories(): VotingStationCategory[] {
-    let categories = [];
-    VotingStationsData.map((item, index) => {
-      if (categories.indexOf(item.category.id) == -1) {
-        categories[item.category.id] = item.category;
-      }
+  getMarkerByID(id: string) {
+    return this.query.get(id).then(function(marker) {
+      return marker;
+    }, function(error) {
+      Parse.Analytics.track('error', {
+        code: error.code,
+        stack: ErrorUtils.getStackTrace()
+      });
     });
-
-    return categories.filter(n => n);
   }
 
-  private renameMarkers(markers: MarkerVotingStation[]): MarkerVotingStation[] {
-    return markers.map((item, index) => {
-      item.name = item.address;
-      return item;
+  getMarkers() {
+    return this.query.find().then(function(markers) {
+      return markers;
+    }, function(error) {
+      Parse.Analytics.track('error', {
+        code: error.code,
+        stack: ErrorUtils.getStackTrace()
+      });
+    });
+  }
+
+  getMarkersByCategoryID(category: string) {
+    this.query.equalTo('category', category);
+    return this.query.find().then(function(markers) {
+      return markers;
+    }, function(error) {
+      Parse.Analytics.track('error', {
+        code: error.code,
+        stack: ErrorUtils.getStackTrace()
+      });
+    });
+  }
+
+  getMarkerCategories() {
+    let categories = [];
+    return this.getMarkers().then(function(markers) {
+      markers.map((item, index) => {
+        if (categories.indexOf(item.get("category")) == -1) {
+          categories.push(item.get("category"));
+        }
+      });
+
+      return categories.filter(n => n);
+    }, function(error) {
+      Parse.Analytics.track('error', {
+        code:error.code,
+        stack: ErrorUtils.getStackTrace()
+      });
     });
   }
 }

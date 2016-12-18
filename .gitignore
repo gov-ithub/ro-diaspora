@@ -35,3 +35,4 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 
 .io-config.json
+src/app/config/config.ts
