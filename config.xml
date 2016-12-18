@@ -76,7 +76,7 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="xwalkMode" value="lite" />
-    <preference name="LoadUrlTimeoutValue" value="30000" />
+    <preference name="LoadUrlTimeoutValue" value="35000" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
@@ -84,6 +84,10 @@
     <plugin name="cordova-plugin-directions" spec="~0.4.4" />
     <plugin name="cordova-plugin-dialogs" spec="~1.3.0" />
     <plugin name="cordova.plugins.diagnostic" spec="~3.1" />
+    <plugin name="cordova-plugin-statusbar" spec="~2.2.0" />
+    <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.3.0" />
+    <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
     <plugin name="cordova-plugin-device" spec="~1.1.3" />
     <plugin name="cordova-plugin-console" spec="~1.0.4" />
     <plugin name="cordova-sqlite-storage" spec="~2.0.0" />
@@ -98,8 +102,4 @@
         <variable name="XWALK_MULTIPLEAPK" value="true" />
     </plugin>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
-    <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
-    <plugin name="cordova-plugin-whitelist" spec="~1.3.1" />
-    <plugin name="cordova-plugin-statusbar" spec="~2.2.1" />
-    <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
 </widget>
