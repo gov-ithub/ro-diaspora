@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { Geolocation, Geoposition } from 'ionic-native';
 
 import 'rxjs/add/operator/filter';

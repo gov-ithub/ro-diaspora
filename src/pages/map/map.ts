@@ -7,17 +7,16 @@ import {
   FabContainer,
 } from 'ionic-angular';
 import { GoogleAnalytics } from 'ionic-native';
-
 import { Storage } from '@ionic/storage';
 
 import { PageMapView } from '../../pages/map-view/map-view';
 
-import { MarkerVotingStation } from '../../models/marker-voting-station';
 import { MarkersService } from '../../providers/markers';
 import { PositionService } from '../../providers/position';
 
-import { MarkerCategoryID } from '../../models/marker-category-id';
-import { VotingStationCategory } from '../../models/voting-station-category';
+import { Marker } from '../../models/marker';
+import { MarkerCategoryData } from '../../models/marker-category-data';
+import { MarkerCategory } from '../../models/marker-category';
 
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
@@ -32,12 +31,12 @@ export class PageMap {
   @ViewChild("gmap") mapElement: ElementRef;
 
   userPosition: google.maps.LatLngLiteral = latLngEurope;
-  markerCategories: VotingStationCategory[];
+  markerCategories: MarkerCategory[];
 
   private map: google.maps.Map;
   private userMarker: google.maps.Marker;
   private locationMarkers: google.maps.Marker[] = [];
-  private markers: MarkerVotingStation[];
+  private markers: Marker[];
   private markersRef: google.maps.Marker[] = [];
   private clusterer?: MarkerClusterer = null;
   private hasLocation: boolean = false;
@@ -82,7 +81,7 @@ export class PageMap {
     this.setMap();
     this.presentToast();
     this.markerCategories = this.markersService.getMarkerCategories().filter(
-      category => category.id != MarkerCategoryID.SectiiVot
+      category => category.id != MarkerCategoryData.SectiiVot
     );
   }
 
@@ -108,7 +107,7 @@ export class PageMap {
     this.resetLocationMarkers();
   }
 
-  switchView(cat: MarkerCategoryID, fab: FabContainer) {
+  switchView(cat: MarkerCategoryData, fab: FabContainer) {
     this.setMarkers(this.markersService.getMarkersByCategoryID(cat));
     fab.close();
   }
@@ -158,7 +157,7 @@ export class PageMap {
     this.userMarker = new google.maps.Marker({ map: this.map, position: null, icon: this.markerIconUser });
   }
 
-  private setMarkers(markerList: MarkerVotingStation[]) {
+  private setMarkers(markerList: Marker[]) {
     // get & set markers
     if (this.markers) {
       this.markers = [];

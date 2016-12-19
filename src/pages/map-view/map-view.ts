@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { ViewController, NavParams, Platform } from 'ionic-angular';
 import { GoogleAnalytics } from 'ionic-native';
 
-import { MarkerVotingStation } from '../../models/marker-voting-station';
 import { MarkersService } from '../../providers/markers';
+
+import { Marker } from '../../models/marker';
 
 declare var directions: any;
 
@@ -15,7 +16,7 @@ export class PageMapView {
   sliderOptions = {
     pager: true,
   };
-  marker: MarkerVotingStation;
+  marker: Marker;
   image: string;
   imagePanoramic: string;
   isOverlay: boolean;
