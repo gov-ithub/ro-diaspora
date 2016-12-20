@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Marker } from '../models/marker';
-import { MarkerCategoryData } from '../models/marker-category-data';
+import { MarkerCategoryID } from '../models/marker-category-id';
 import { MarkerCategory } from '../models/marker-category';
 
 import { MarkersData } from './markers-data';
@@ -10,7 +10,7 @@ import { MarkersData } from './markers-data';
 export class MarkersService {
   getMarkers(id?: string): Marker[] {
     let output: Marker[] = MarkersData.filter(
-      res => res.category.id !== MarkerCategoryData.SectiiVot
+      res => res.category.id !== MarkerCategoryID.SectiiVot
     );
 
     if (id) {
@@ -19,7 +19,7 @@ export class MarkersService {
     return this.renameMarkers(output);
   }
 
-  getMarkersByCategoryID(categoryID: MarkerCategoryData): Marker[] {
+  getMarkersByCategoryID(categoryID: MarkerCategoryID): Marker[] {
     return this.renameMarkers(
       MarkersData.filter(res => res.category.id === categoryID)
     );

@@ -15,7 +15,7 @@ import { MarkersService } from '../../providers/markers';
 import { PositionService } from '../../providers/position';
 
 import { Marker } from '../../models/marker';
-import { MarkerCategoryData } from '../../models/marker-category-data';
+import { MarkerCategoryID } from '../../models/marker-category-id';
 import { MarkerCategory } from '../../models/marker-category';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -81,7 +81,7 @@ export class PageMap {
     this.setMap();
     this.presentToast();
     this.markerCategories = this.markersService.getMarkerCategories().filter(
-      category => category.id != MarkerCategoryData.SectiiVot
+      category => category.id != MarkerCategoryID.SectiiVot
     );
   }
 
@@ -107,7 +107,7 @@ export class PageMap {
     this.resetLocationMarkers();
   }
 
-  switchView(cat: MarkerCategoryData, fab: FabContainer) {
+  switchView(cat: MarkerCategoryID, fab: FabContainer) {
     this.setMarkers(this.markersService.getMarkersByCategoryID(cat));
     fab.close();
   }

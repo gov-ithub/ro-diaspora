@@ -1,6 +1,6 @@
-import { MarkerCategoryData } from './marker-category-data';
+import { MarkerCategoryID } from './marker-category-id';
 
 export interface MarkerCategory {
   name: string;
-  id: MarkerCategoryData;
+  id: MarkerCategoryID;
 }

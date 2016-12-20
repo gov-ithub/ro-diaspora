@@ -1,4 +1,4 @@
-export enum MarkerCategoryData {
+export enum MarkerCategoryID {
   SectiiVot = 3420,
   Ambasade = 690,
   Consulate = 694,
