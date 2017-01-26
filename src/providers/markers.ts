@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import { MarkerVotingStation } from '../models/marker-voting-station';
-import { VotingStationsData } from './markers-data';
-
+import { Marker } from '../models/marker';
 import { MarkerCategoryID } from '../models/marker-category-id';
-import { VotingStationCategory } from '../models/voting-station-category';
+import { MarkerCategory } from '../models/marker-category';
+
+import { MarkersData } from './markers-data';
 
 @Injectable()
 export class MarkersService {
-  getMarkers(id?: string): MarkerVotingStation[] {
-    let output: MarkerVotingStation[] = VotingStationsData.filter(
+  getMarkers(id?: string): Marker[] {
+    let output: Marker[] = MarkersData.filter(
       res => res.category.id !== MarkerCategoryID.SectiiVot
     );
 
@@ -19,15 +19,15 @@ export class MarkersService {
     return this.renameMarkers(output);
   }
 
-  getMarkersByCategoryID(categoryID: MarkerCategoryID): MarkerVotingStation[] {
+  getMarkersByCategoryID(categoryID: MarkerCategoryID): Marker[] {
     return this.renameMarkers(
-      VotingStationsData.filter(res => res.category.id === categoryID)
+      MarkersData.filter(res => res.category.id === categoryID)
     );
   }
 
-  getMarkerCategories(): VotingStationCategory[] {
+  getMarkerCategories(): MarkerCategory[] {
     let categories = [];
-    VotingStationsData.map((item, index) => {
+    MarkersData.map((item, index) => {
       if (categories.indexOf(item.category.id) == -1) {
         categories[item.category.id] = item.category;
       }
@@ -36,7 +36,7 @@ export class MarkersService {
     return categories.filter(n => n);
   }
 
-  private renameMarkers(markers: MarkerVotingStation[]): MarkerVotingStation[] {
+  private renameMarkers(markers: Marker[]): Marker[] {
     return markers.map((item, index) => {
       item.name = item.address;
       return item;

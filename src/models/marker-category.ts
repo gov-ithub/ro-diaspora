@@ -1,6 +1,6 @@
 import { MarkerCategoryID } from './marker-category-id';
 
-export interface VotingStationCategory {
+export interface MarkerCategory {
   name: string;
   id: MarkerCategoryID;
 }
